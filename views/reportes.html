@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operaciones Especiales (RPC y Servicios Web) | SGA Distribuido</title>
+    <meta name="description" content="Interfaz de operaciones especiales, procedimientos remotos JSON-RPC 2.0 y consumo de servicios web GraphQL.">
+    <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+    <!-- HEADER ÚNICO CONSOLIDADO (Anti-Slop: Zero Top-Bars) -->
+    <header class="header-principal">
+        <div class="header-container">
+            <a href="/" class="brand-wrapper">
+                <div class="brand-monogram">UNA</div>
+                <div class="brand-info">
+                    <h1>SGA Distribuido</h1>
+                    <p>Escuela de Informática - Grupo #6</p>
+                </div>
+            </a>
+            <nav class="nav-principal" aria-label="Navegación del Sistema">
+                <a href="/" class="nav-link">Dashboard</a>
+                <a href="/consulta" class="nav-link">Consulta REST</a>
+                <a href="/gestion" class="nav-link">Gestión Académica</a>
+                <a href="/reportes" class="nav-link active">RPC y Servicios Web</a>
+            </nav>
+            <div class="header-meta">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span>JSON-RPC 2.0 & GraphQL</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL: INTERFAZ 4 (OPERACIONES ESPECIALES) -->
+    <main class="main-wrapper">
+        <header class="page-header">
+            <h2>Operaciones Especiales y Servicios Distribuidos</h2>
+            <p>Demostración práctica de los contenidos avanzados de <strong>Semana 3 (Procedimientos Remotos RPC)</strong> y <strong>Semana 4 (Servicios Web GraphQL)</strong> aplicados a la gestión académica institucional.</p>
+        </header>
+
+        <!-- SECCIÓN 1: PROCEDIMIENTOS REMOTOS RPC (SEMANA 3) -->
+        <section class="section-card">
+            <div class="section-title">
+                <span>1. Procedimientos Remotos RPC (Protocolo JSON-RPC 2.0)</span>
+            </div>
+            <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">
+                A diferencia de REST orientado a recursos, RPC invoca algoritmos remotos mediante <code>POST /api/rpc</code> con método explícito y parámetros.
+            </p>
+
+            <div class="form-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 20px;">
+                <!-- RPC 1: Promedio Ponderado -->
+                <div style="background-color:var(--bg-elevated); padding:16px; border-radius:8px; border:1px solid var(--border-subtle);">
+                    <h3 style="font-size:15px; font-weight:600; margin-bottom:8px;">A. Cálculo de Promedio Ponderado por Créditos</h3>
+                    <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Método RPC: <code>calcularPromedioPonderado</code></p>
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label for="selectRpcEstudiante">Estudiante a auditar:</label>
+                        <select id="selectRpcEstudiante">
+                            <option value="">Cargando estudiantes...</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="invocarRpcPromedio()">Ejecutar RPC (JSON-RPC 2.0)</button>
+                </div>
+
+                <!-- RPC 2: Analítica de Cohorte -->
+                <div style="background-color:var(--bg-elevated); padding:16px; border-radius:8px; border:1px solid var(--border-subtle);">
+                    <h3 style="font-size:15px; font-weight:600; margin-bottom:8px;">B. Analítica Estadística de Rendimiento</h3>
+                    <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Método RPC: <code>analizarRendimientoGrupo</code></p>
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label for="selectRpcCurso">Curso a evaluar (o cohorte completa):</label>
+                        <select id="selectRpcCurso">
+                            <option value="">Todos los cursos del ciclo</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="invocarRpcEstadisticas()">Calcular Estadísticas Remotas</button>
+                </div>
+            </div>
+
+            <!-- RESULTADO VISUAL RPC -->
+            <div id="resultadoRpcBox" style="display:none; background-color:#050507; border:1px solid var(--border-subtle); border-radius:8px; padding:16px;">
+                <h4 id="resultadoRpcTitulo" style="font-size:14px; font-weight:600; margin-bottom:10px; color:var(--accent-sky);">Resultado del Procedimiento Remoto</h4>
+                <div id="resultadoRpcContenido"></div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: INTEGRACIÓN CON SERVICIO WEB (SEMANA 4) -->
+        <section class="section-card">
+            <div class="section-title">
+                <span>2. Integración con Servicios Web (Semana 4 - GraphQL)</span>
+            </div>
+            <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">
+                Consumo del Servicio Web GraphQL de países y monedas (<code>https://countries.trevorblades.com/</code>) estudiado en clase para la homologación internacional de expedientes estudiantiles.
+            </p>
+
+            <div class="form-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 20px;">
+                <!-- Servicio Web 1: Homologación -->
+                <div style="background-color:var(--bg-elevated); padding:16px; border-radius:8px; border:1px solid var(--border-subtle);">
+                    <h3 style="font-size:15px; font-weight:600; margin-bottom:8px;">A. Convalidación de Estudiante Foráneo</h3>
+                    <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Valida país de origen, moneda y aranceles mediante GraphQL.</p>
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label for="selectWsEstudiante">Estudiante a convalidar:</label>
+                        <select id="selectWsEstudiante">
+                            <option value="">Cargando estudiantes...</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="invocarWsHomologacion()">Homologar con Servicio Web</button>
+                </div>
+
+                <!-- Servicio Web 2: Catálogo Internacional -->
+                <div style="background-color:var(--bg-elevated); padding:16px; border-radius:8px; border:1px solid var(--border-subtle);">
+                    <h3 style="font-size:15px; font-weight:600; margin-bottom:8px;">B. Consulta GraphQL de Países con Convenio</h3>
+                    <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Ejecuta consulta <code>query { countries { code name emoji ... } }</code>.</p>
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <label for="inputWsCodigoPais">Filtrar código de país (opcional):</label>
+                        <input type="text" id="inputWsCodigoPais" placeholder="Ej: DE, ES, US, MX, CR">
+                    </div>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="invocarWsPaises()">Consultar Servicio Web</button>
+                </div>
+            </div>
+
+            <!-- RESULTADO VISUAL SERVICIO WEB -->
+            <div id="resultadoWsBox" style="display:none; background-color:#050507; border:1px solid var(--border-subtle); border-radius:8px; padding:16px;">
+                <h4 id="resultadoWsTitulo" style="font-size:14px; font-weight:600; margin-bottom:10px; color:var(--accent-emerald);">Respuesta del Servicio Web</h4>
+                <div id="resultadoWsContenido"></div>
+            </div>
+        </section>
+
+        <!-- INSPECTOR DE TRAZA TÉCNICA (EVIDENCIA PARA EL PROFESOR) -->
+        <section class="inspector-panel" aria-label="Consola de Protocolos">
+            <div class="inspector-header">
+                <span>Inspector de Protocolos (Evidencia para Demostración en Clase)</span>
+                <span class="inspector-meta" id="inspectorMeta">Seleccione una operación RPC o Servicio Web</span>
+            </div>
+            <div class="inspector-body" id="inspectorBody">// El sobre JSON-RPC o la consulta GraphQL con su respuesta se mostrarán aquí con precisión técnica...</div>
+        </section>
+    </main>
+
+    <!-- FOOTER TRADICIONAL AUTORITATIVO (Anti-Slop: 4 Columnas) -->
+    <footer class="footer-principal">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>Universidad Nacional</h4>
+                <p>Escuela de Informática - Campus Omar Dengo, Heredia, Costa Rica.</p>
+                <p>Sistema de Gestión Académica Distribuido desarrollado para el curso de Sistemas Distribuidos (C2-2026).</p>
+            </div>
+            <div class="footer-col">
+                <h4>Módulos del Sistema</h4>
+                <ul>
+                    <li><a href="/">Dashboard General</a></li>
+                    <li><a href="/consulta">Consulta de Expedientes (REST)</a></li>
+                    <li><a href="/gestion">Gestión de Matrícula (CRUD)</a></li>
+                    <li><a href="/reportes">Auditoría RPC & Servicios Web</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Marco de Cátedra</h4>
+                <p>Curso: Sistemas Distribuidos</p>
+                <p>Profesor: M.Sc. Luis Raúl</p>
+                <p>Demostración: Solicitudes RPC (Semana 3) y Servicios Web (Semana 4).</p>
+            </div>
+            <div class="footer-col">
+                <h4>Equipo de Trabajo (Grupo 6)</h4>
+                <div class="team-member">Marcos Román Valverde <span class="team-id">(3-0529-0253)</span></div>
+                <div class="team-member">Emanuel Soto Cordero <span class="team-id">(1-1823-0492)</span></div>
+                <div class="team-member">Anthony Cerdas Morales <span class="team-id">(4-0231-0814)</span></div>
+            </div>
+        </div>
+        <div class="footer-colophon">
+            <span>&copy; 2026 Universidad Nacional de Costa Rica. Todos los derechos reservados.</span>
+            <button type="button" class="btn-top" onclick="volverArriba()">Volver arriba &uarr;</button>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    <script>
+        async function inicializarListas() {
+            try {
+                const [resEst, resCur] = await Promise.all([
+                    fetch("/api/academico/estudiantes"),
+                    fetch("/api/academico/cursos")
+                ]);
+
+                const dataEst = await resEst.json();
+                const dataCur = await resCur.json();
+
+                const selectRpcEst = document.getElementById("selectRpcEstudiante");
+                const selectWsEst = document.getElementById("selectWsEstudiante");
+                const selectRpcCur = document.getElementById("selectRpcCurso");
+
+                const estudiantes = dataEst.datos || [];
+                const cursos = dataCur.datos || [];
+
+                const estOptions = estudiantes.map(e => `<option value="${e.id}">${e.nombre} (${e.id}) - ${e.pais}</option>`).join("");
+                selectRpcEst.innerHTML = `<option value="">-- Seleccionar Estudiante --</option>` + estOptions;
+                selectWsEst.innerHTML = `<option value="">-- Seleccionar Estudiante --</option>` + estOptions;
+
+                selectRpcCur.innerHTML = `<option value="">Todos los cursos del ciclo (General)</option>` +
+                    cursos.map(c => `<option value="${c.id}">${c.id} - ${c.nombre}</option>`).join("");
+
+            } catch (err) {
+                mostrarToast("Error cargando listas: " + err.message, "error");
+            }
+        }
+
+        async function invocarRpcPromedio() {
+            const estudianteId = document.getElementById("selectRpcEstudiante").value;
+            if (!estudianteId) {
+                mostrarToast("Por favor seleccione un estudiante.", "error");
+                return;
+            }
+
+            const solicitudRPC = {
+                jsonrpc: "2.0",
+                method: "calcularPromedioPonderado",
+                params: { estudianteId },
+                id: 101
+            };
+
+            const t0 = performance.now();
+            try {
+                const res = await fetch("/api/rpc", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(solicitudRPC)
+                });
+                const respuestaRPC = await res.json();
+                const latencia = Math.round(performance.now() - t0);
+
+                actualizarInspector({
+                    metodo: "POST (JSON-RPC 2.0)",
+                    url: "/api/rpc",
+                    requestBody: solicitudRPC,
+                    status: res.status,
+                    responseBody: respuestaRPC,
+                    tiempoMs: latencia
+                });
+
+                if (respuestaRPC.result) {
+                    const r = respuestaRPC.result;
+                    const box = document.getElementById("resultadoRpcBox");
+                    const cont = document.getElementById("resultadoRpcContenido");
+                    document.getElementById("resultadoRpcTitulo").textContent = `Resultado RPC: ${r.nombre} (${r.estudianteId})`;
+
+                    cont.innerHTML = `
+                        <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:14px;">
+                            <div style="background:#121216; padding:10px; border-radius:6px; border:1px solid #27272a;">
+                                <div style="font-size:12px; color:var(--text-muted);">Promedio Ponderado</div>
+                                <div style="font-size:22px; font-weight:600; color:var(--accent-sky);">${r.promedioPonderado}</div>
+                            </div>
+                            <div style="background:#121216; padding:10px; border-radius:6px; border:1px solid #27272a;">
+                                <div style="font-size:12px; color:var(--text-muted);">Condición Académica</div>
+                                <div style="font-size:13px; font-weight:600; color:#34d399; margin-top:4px;">${r.condicionAcademica}</div>
+                            </div>
+                            <div style="background:#121216; padding:10px; border-radius:6px; border:1px solid #27272a;">
+                                <div style="font-size:12px; color:var(--text-muted);">Créditos Aprobados</div>
+                                <div style="font-size:22px; font-weight:600;">${r.creditosAprobados} / ${r.creditosTotales}</div>
+                            </div>
+                            <div style="background:#121216; padding:10px; border-radius:6px; border:1px solid #27272a;">
+                                <div style="font-size:12px; color:var(--text-muted);">Cursos Matriculados</div>
+                                <div style="font-size:22px; font-weight:600;">${r.totalCursos}</div>
+                            </div>
+                        </div>
+                    `;
+                    box.style.display = "block";
+                    mostrarToast("Procedimiento RPC ejecutado con éxito.", "success");
+                } else if (respuestaRPC.error) {
+                    mostrarToast("Error RPC: " + respuestaRPC.error.message, "error");
+                }
+            } catch (err) {
+                mostrarToast("Error comunicándose con el servidor RPC: " + err.message, "error");
+            }
+        }
+
+        async function invocarRpcEstadisticas() {
+            const cursoId = document.getElementById("selectRpcCurso").value || null;
+
+            const solicitudRPC = {
+                jsonrpc: "2.0",
+                method: "analizarRendimientoGrupo",
+                params: { cursoId },
+                id: 102
+            };
+
+            const t0 = performance.now();
+            try {
+                const res = await fetch("/api/rpc", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(solicitudRPC)
+                });
+                const respuestaRPC = await res.json();
+                const latencia = Math.round(performance.now() - t0);
+
+                actualizarInspector({
+                    metodo: "POST (JSON-RPC 2.0)",
+                    url: "/api/rpc",
+                    requestBody: solicitudRPC,
+                    status: res.status,
+                    responseBody: respuestaRPC,
+                    tiempoMs: latencia
+                });
+
+                if (respuestaRPC.result) {
+                    const s = respuestaRPC.result;
+                    const box = document.getElementById("resultadoRpcBox");
+                    const cont = document.getElementById("resultadoRpcContenido");
+                    document.getElementById("resultadoRpcTitulo").textContent = `Estadísticas Remotas RPC: ${s.cursoFiltrado}`;
+
+                    cont.innerHTML = `
+                        <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px;">
+                            <div style="background:#121216; padding:10px; border-radius:6px; border:1px solid #27272a;">
+                                <div style="font-size:12px; color:var(--text-muted);">Media Aritmética</div>
+                                <div style="font-size:22px; font-weight:600; color:var(--accent-sky);">${s.mediaAritmetica}</div>
+                            </div>
+                            <div style="background:#121216; padding:10px; border-radius:6px; border:1px solid #27272a;">
+                                <div style="font-size:12px; color:var(--text-muted);">Desviación Estándar</div>
+                                <div style="font-size:22px; font-weight:600;">&plusmn;${s.desviacionEstandar}</div>
+                            </div>
+                            <div style="background:#121216; padding:10px; border-radius:6px; border:1px solid #27272a;">
+                                <div style="font-size:12px; color:var(--text-muted);">Rango (Mín / Máx)</div>
+                                <div style="font-size:20px; font-weight:600;">${s.notaMinima} - ${s.notaMaxima}</div>
+                            </div>
+                            <div style="background:#121216; padding:10px; border-radius:6px; border:1px solid #27272a;">
+                                <div style="font-size:12px; color:var(--text-muted);">Tasa de Aprobación</div>
+                                <div style="font-size:22px; font-weight:600; color:#34d399;">${s.tasaAprobacionPct}%</div>
+                            </div>
+                        </div>
+                    `;
+                    box.style.display = "block";
+                    mostrarToast("Estadísticas RPC calculadas por el servidor.", "success");
+                }
+            } catch (err) {
+                mostrarToast("Fallo al ejecutar RPC: " + err.message, "error");
+            }
+        }
+
+        async function invocarWsHomologacion() {
+            const estudianteId = document.getElementById("selectWsEstudiante").value;
+            if (!estudianteId) {
+                mostrarToast("Seleccione un estudiante para homologar.", "error");
+                return;
+            }
+
+            const url = `/api/web-services/homologacion/${encodeURIComponent(estudianteId)}`;
+            const t0 = performance.now();
+
+            try {
+                const res = await fetch(url);
+                const json = await res.json();
+                const latencia = Math.round(performance.now() - t0);
+
+                actualizarInspector({
+                    metodo: "GET (Consumo Servicio Web GraphQL)",
+                    url: url,
+                    status: res.status,
+                    responseBody: json,
+                    tiempoMs: latencia
+                });
+
+                if (json.datos) {
+                    const d = json.datos;
+                    const box = document.getElementById("resultadoWsBox");
+                    const cont = document.getElementById("resultadoWsContenido");
+                    document.getElementById("resultadoWsTitulo").textContent = `Homologación Internacional: ${d.estudiante.nombre}`;
+
+                    cont.innerHTML = `
+                        <div style="background:#121216; padding:14px; border-radius:6px; border:1px solid #27272a; margin-bottom:10px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                                <strong>País de Procedencia: ${d.homologacion.paisOficial}</strong>
+                                <span style="color:#34d399; font-size:13px; font-weight:500;">${d.homologacion.estadoValidacion}</span>
+                            </div>
+                            <p style="font-size:13px; color:var(--text-secondary); margin-bottom:4px;">Capital Oficial: <strong>${d.homologacion.capital}</strong> &bull; Moneda Local: <strong>${d.homologacion.monedaOficial}</strong></p>
+                            <p style="font-size:13px; color:var(--text-secondary); margin-bottom:4px;">Arancel Calculado de Matrícula: <strong>$${d.homologacion.arancelCicloUSD} USD</strong> ${d.homologacion.aplicaConvenioMovilidad ? '(Aplica recargo internacional 15%)' : '(Tarifa estándar nacional)'}</p>
+                            <p style="font-size:12px; color:var(--text-muted); font-family:var(--font-mono); margin-top:8px;">Fuente técnica: ${d.trazaTecnica.fuente} (${d.trazaTecnica.endpoint})</p>
+                        </div>
+                    `;
+                    box.style.display = "block";
+                    mostrarToast("Homologación completada con Servicio Web.", "success");
+                }
+            } catch (err) {
+                mostrarToast("Error en Servicio Web: " + err.message, "error");
+            }
+        }
+
+        async function invocarWsPaises() {
+            const codigo = document.getElementById("inputWsCodigoPais").value.trim();
+            const url = codigo ? `/api/web-services/paises?codigo=${encodeURIComponent(codigo)}` : `/api/web-services/paises`;
+            const t0 = performance.now();
+
+            try {
+                const res = await fetch(url);
+                const json = await res.json();
+                const latencia = Math.round(performance.now() - t0);
+
+                actualizarInspector({
+                    metodo: "GET (Servicio Web GraphQL)",
+                    url: url,
+                    status: res.status,
+                    responseBody: json,
+                    tiempoMs: latencia
+                });
+
+                const box = document.getElementById("resultadoWsBox");
+                const cont = document.getElementById("resultadoWsContenido");
+                const r = json.resultado;
+                document.getElementById("resultadoWsTitulo").textContent = `Catálogo de Convenios (${r.origen})`;
+
+                if (Array.isArray(r.datos)) {
+                    cont.innerHTML = `
+                        <div style="font-size:13px; color:var(--text-muted); margin-bottom:10px;">${r.totalPaises} países disponibles para intercambio bilateral.</div>
+                        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:8px;">
+                            ${r.datos.slice(0, 12).map(p => `
+                                <div style="background:#121216; padding:8px 12px; border-radius:6px; border:1px solid #27272a; font-size:13px;">
+                                    <strong>${p.emoji} ${p.name}</strong> (${p.code})<br>
+                                    <span style="color:var(--text-muted); font-size:12px;">Cap: ${p.capital || 'N/A'} | Moneda: ${p.currency || 'N/A'}</span>
+                                </div>
+                            `).join("")}
+                        </div>
+                    `;
+                } else if (r.datos) {
+                    const p = r.datos;
+                    cont.innerHTML = `
+                        <div style="background:#121216; padding:12px; border-radius:6px; border:1px solid #27272a;">
+                            <h5 style="font-size:15px; margin-bottom:6px;">${p.emoji} ${p.name} (${p.code})</h5>
+                            <p style="font-size:13px; color:var(--text-secondary);">Capital: <strong>${p.capital}</strong> &bull; Moneda: <strong>${p.currency}</strong></p>
+                        </div>
+                    `;
+                } else {
+                    cont.innerHTML = `<p style="color:var(--text-muted);">No se encontraron países para el código especificado.</p>`;
+                }
+
+                box.style.display = "block";
+                mostrarToast("Datos obtenidos desde el Servicio Web.", "success");
+            } catch (err) {
+                mostrarToast("Error en Servicio Web: " + err.message, "error");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", inicializarListas);
+    </script>
+</body>
+</html>

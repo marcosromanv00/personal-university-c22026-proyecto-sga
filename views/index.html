@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGA Distribuido - Dashboard Institucional | UNA</title>
+    <meta name="description" content="Sistema de Gestión Académica Distribuido desarrollado para la Escuela de Informática de la Universidad Nacional. Integración REST, RPC y Servicios Web.">
+    <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+    <!-- HEADER ÚNICO CONSOLIDADO (Anti-Slop: Zero Top-Bars) -->
+    <header class="header-principal">
+        <div class="header-container">
+            <a href="/" class="brand-wrapper">
+                <div class="brand-monogram">UNA</div>
+                <div class="brand-info">
+                    <h1>SGA Distribuido</h1>
+                    <p>Escuela de Informática - Grupo #6</p>
+                </div>
+            </a>
+            <nav class="nav-principal" aria-label="Navegación del Sistema">
+                <a href="/" class="nav-link active">Dashboard</a>
+                <a href="/consulta" class="nav-link">Consulta REST</a>
+                <a href="/gestion" class="nav-link">Gestión Académica</a>
+                <a href="/reportes" class="nav-link">RPC y Servicios Web</a>
+            </nav>
+            <div class="header-meta">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span>En Línea :3000</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL: INTERFAZ 1 (DASHBOARD) -->
+    <main class="main-wrapper">
+        <header class="page-header">
+            <h2>Panel de Control Académico</h2>
+            <p>Monitoreo centralizado del sistema distribuido de la cohorte estudiantil, cursos habilitados y estado de los mecanismos de comunicación distribuida.</p>
+        </header>
+
+        <!-- KPIS / RESUMEN DE INFORMACIÓN -->
+        <section class="kpi-row" aria-label="Métricas Académicas">
+            <article class="kpi-card">
+                <div class="kpi-label">Estudiantes Registrados</div>
+                <div class="kpi-value" id="kpiEstudiantes">--</div>
+                <div class="kpi-subtext">Población activa en plataforma</div>
+            </article>
+
+            <article class="kpi-card">
+                <div class="kpi-label">Cursos Ofertados</div>
+                <div class="kpi-value" id="kpiCursos">--</div>
+                <div class="kpi-subtext">Catálogo vigente II Ciclo 2026</div>
+            </article>
+
+            <article class="kpi-card">
+                <div class="kpi-label">Matrículas Formalizadas</div>
+                <div class="kpi-value" id="kpiMatriculas">--</div>
+                <div class="kpi-subtext">Asignaciones en cursos</div>
+            </article>
+
+            <article class="kpi-card">
+                <div class="kpi-label">Promedio de Cohorte</div>
+                <div class="kpi-value" id="kpiPromedio">--</div>
+                <div class="kpi-subtext" id="kpiAprobacion">--% tasa de aprobación</div>
+            </article>
+        </section>
+
+        <!-- ARQUITECTURA DISTRIBUIDA Y ACCESOS A INTERFACES -->
+        <section class="section-card">
+            <div class="section-title">
+                <span>Ecosistema de Comunicación Distribuida</span>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Mecanismo Distribuido</th>
+                            <th>Semana de Estudio</th>
+                            <th>Protocolo / Transporte</th>
+                            <th>Propósito en el SGA</th>
+                            <th>Interfaz Asociada</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>API REST</strong></td>
+                            <td>Semana 2</td>
+                            <td>HTTP (GET, POST, PUT, DELETE)</td>
+                            <td>Operaciones CRUD sobre expedientes de estudiantes, catálogo de cursos y matrículas.</td>
+                            <td><a href="/consulta" class="btn btn-secondary btn-sm">Ir a Consulta</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Procedimientos Remotos (RPC)</strong></td>
+                            <td>Semana 3</td>
+                            <td>JSON-RPC 2.0 sobre HTTP POST</td>
+                            <td>Cálculo remoto de promedio ponderado, auditoría de honor y analítica del grupo.</td>
+                            <td><a href="/reportes" class="btn btn-secondary btn-sm">Ir a RPC</a></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Servicios Web Externos</strong></td>
+                            <td>Semana 4</td>
+                            <td>GraphQL / REST Externo</td>
+                            <td>Homologación de estudiantes extranjeros, monedas y convenios internacionales.</td>
+                            <td><a href="/reportes" class="btn btn-secondary btn-sm">Ir a Servicios</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- RESUMEN DE COHORTE RECIENTE -->
+        <section class="section-card">
+            <div class="section-title">
+                <span>Muestra de Estudiantes Activos en el Sistema</span>
+                <a href="/consulta" class="btn btn-primary btn-sm">Ver Todos</a>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Identificación</th>
+                            <th>Nombre Completo</th>
+                            <th>Carrera</th>
+                            <th>País</th>
+                            <th>Cursos</th>
+                            <th>Promedio</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaDashboardEstudiantes">
+                        <tr><td colspan="7" style="text-align:center; color: var(--text-muted);">Cargando datos desde servicio REST...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- CONSOLA DE INSPECCIÓN EN VIVO -->
+        <section class="inspector-panel" aria-label="Traza Técnica">
+            <div class="inspector-header">
+                <span>Inspector de Comunicación Distribuida</span>
+                <span class="inspector-meta" id="inspectorMeta">GET /api/academico/dashboard | Esperando solicitud</span>
+            </div>
+            <div class="inspector-body" id="inspectorBody">// La traza de la comunicación entre cliente y servidor aparecerá aquí al interactuar...</div>
+        </section>
+    </main>
+
+    <!-- FOOTER TRADICIONAL AUTORITATIVO (Anti-Slop: 4 Columnas) -->
+    <footer class="footer-principal">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>Universidad Nacional</h4>
+                <p>Escuela de Informática - Campus Omar Dengo, Heredia, Costa Rica.</p>
+                <p>Sistema de Gestión Académica Distribuido desarrollado para el curso de Sistemas Distribuidos (C2-2026).</p>
+            </div>
+            <div class="footer-col">
+                <h4>Módulos del Sistema</h4>
+                <ul>
+                    <li><a href="/">Dashboard General</a></li>
+                    <li><a href="/consulta">Consulta de Expedientes (REST)</a></li>
+                    <li><a href="/gestion">Gestión de Matrícula (CRUD)</a></li>
+                    <li><a href="/reportes">Auditoría RPC & Servicios Web</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Marco de Cátedra</h4>
+                <p>Curso: Sistemas Distribuidos</p>
+                <p>Profesor: M.Sc. Luis Raúl</p>
+                <p>Tecnologías: Node.js 24, Express, JSON-RPC 2.0, GraphQL, Persistencia Local.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Equipo de Trabajo (Grupo 6)</h4>
+                <div class="team-member">Marcos Román Valverde <span class="team-id">(3-0529-0253)</span></div>
+                <div class="team-member">Emanuel Soto Cordero <span class="team-id">(1-1823-0492)</span></div>
+                <div class="team-member">Anthony Cerdas Morales <span class="team-id">(4-0231-0814)</span></div>
+            </div>
+        </div>
+        <div class="footer-colophon">
+            <span>&copy; 2026 Universidad Nacional de Costa Rica. Todos los derechos reservados.</span>
+            <button type="button" class="btn-top" onclick="volverArriba()">Volver arriba &uarr;</button>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    <script>
+        async function cargarDashboard() {
+            const t0 = performance.now();
+            try {
+                const res = await fetch("/api/academico/dashboard");
+                const json = await res.json();
+                const latencia = Math.round(performance.now() - t0);
+
+                actualizarInspector({
+                    metodo: "GET",
+                    url: "/api/academico/dashboard",
+                    status: res.status,
+                    responseBody: json,
+                    tiempoMs: latencia
+                });
+
+                if (json.datos) {
+                    const d = json.datos;
+                    document.getElementById("kpiEstudiantes").textContent = d.totalEstudiantes;
+                    document.getElementById("kpiCursos").textContent = d.totalCursos;
+                    document.getElementById("kpiMatriculas").textContent = d.totalMatriculas;
+                    document.getElementById("kpiPromedio").textContent = d.promedioGeneral;
+                    document.getElementById("kpiAprobacion").textContent = `${d.porcentajeAprobacion}% tasa de aprobación`;
+                }
+
+                // Cargar muestra de estudiantes
+                const resEst = await fetch("/api/academico/estudiantes");
+                const jsonEst = await resEst.json();
+                const tbody = document.getElementById("tablaDashboardEstudiantes");
+                if (jsonEst.datos && jsonEst.datos.length > 0) {
+                    tbody.innerHTML = jsonEst.datos.slice(0, 5).map(e => `
+                        <tr>
+                            <td><code>${e.id}</code></td>
+                            <td><strong>${e.nombre}</strong></td>
+                            <td>${e.carrera}</td>
+                            <td>${e.pais} (${e.codigoPais})</td>
+                            <td>${e.totalMatriculas}</td>
+                            <td><strong>${e.promedioGeneral > 0 ? e.promedioGeneral : 'N/A'}</strong></td>
+                            <td><span class="${e.promedioGeneral >= 70 ? 'tag-aprobado' : (e.promedioGeneral >= 60 ? 'tag-aplazado' : 'tag-reprobado')}">${e.estado}</span></td>
+                        </tr>
+                    `).join("");
+                }
+            } catch (err) {
+                mostrarToast("Error cargando dashboard: " + err.message, "error");
+            }
+        }
+        document.addEventListener("DOMContentLoaded", cargarDashboard);
+    </script>
+</body>
+</html>

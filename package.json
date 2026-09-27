@@ -1,0 +1,23 @@
+{
+  "name": "proyecto-sd-grupo-6-academico",
+  "version": "1.0.0",
+  "description": "Sistema de Gestion Academica Distribuido - Grupo 6 UNA (Sistemas Distribuidos)",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node app.js"
+  },
+  "keywords": [
+    "sistemas-distribuidos",
+    "rest",
+    "rpc",
+    "web-services",
+    "express",
+    "una"
+  ],
+  "author": "Grupo 6 - Emanuel Soto, Anthony Cerdas, Marcos Roman",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

@@ -1,0 +1,101 @@
+[
+  {
+    "id": "MAT-2026-001",
+    "estudianteId": "3-0529-0253",
+    "cursoId": "EIF-401",
+    "parcial1": 95,
+    "parcial2": 92,
+    "proyecto": 98,
+    "laboratorios": 100,
+    "notaFinal": 96.2,
+    "estado": "Aprobado"
+  },
+  {
+    "id": "MAT-2026-002",
+    "estudianteId": "3-0529-0253",
+    "cursoId": "EIF-402",
+    "parcial1": 90,
+    "parcial2": 88,
+    "proyecto": 94,
+    "laboratorios": 95,
+    "notaFinal": 91.8,
+    "estado": "Aprobado"
+  },
+  {
+    "id": "MAT-2026-003",
+    "estudianteId": "1-1823-0492",
+    "cursoId": "EIF-401",
+    "parcial1": 92,
+    "parcial2": 90,
+    "proyecto": 96,
+    "laboratorios": 98,
+    "notaFinal": 94,
+    "estado": "Aprobado"
+  },
+  {
+    "id": "MAT-2026-004",
+    "estudianteId": "1-1823-0492",
+    "cursoId": "EIF-305",
+    "parcial1": 85,
+    "parcial2": 88,
+    "proyecto": 90,
+    "laboratorios": 92,
+    "notaFinal": 88.7,
+    "estado": "Aprobado"
+  },
+  {
+    "id": "MAT-2026-005",
+    "estudianteId": "4-0231-0814",
+    "cursoId": "EIF-401",
+    "parcial1": 94,
+    "parcial2": 91,
+    "proyecto": 97,
+    "laboratorios": 99,
+    "notaFinal": 95.3,
+    "estado": "Aprobado"
+  },
+  {
+    "id": "MAT-2026-006",
+    "estudianteId": "4-0231-0814",
+    "cursoId": "EIF-310",
+    "parcial1": 88,
+    "parcial2": 85,
+    "proyecto": 92,
+    "laboratorios": 90,
+    "notaFinal": 88.8,
+    "estado": "Aprobado"
+  },
+  {
+    "id": "MAT-2026-007",
+    "estudianteId": "2-0745-0912",
+    "cursoId": "EIF-401",
+    "parcial1": 78,
+    "parcial2": 82,
+    "proyecto": 85,
+    "laboratorios": 90,
+    "notaFinal": 83.7,
+    "estado": "Aprobado"
+  },
+  {
+    "id": "MAT-2026-008",
+    "estudianteId": "7-0199-0341",
+    "cursoId": "EIF-401",
+    "parcial1": 60,
+    "parcial2": 65,
+    "proyecto": 68,
+    "laboratorios": 70,
+    "notaFinal": 65.7,
+    "estado": "Aplazado"
+  },
+  {
+    "id": "MAT-2026-009",
+    "estudianteId": "P-9021-4410",
+    "cursoId": "EIF-401",
+    "parcial1": 88,
+    "parcial2": 92,
+    "proyecto": 95,
+    "laboratorios": 96,
+    "notaFinal": 92.7,
+    "estado": "Aprobado"
+  }
+]

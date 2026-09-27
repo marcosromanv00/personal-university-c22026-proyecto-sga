@@ -1,0 +1,62 @@
+[
+  {
+    "id": "3-0529-0253",
+    "nombre": "Marcos Román Valverde",
+    "carrera": "Ingeniería en Sistemas de Información",
+    "nivel": "III Nivel",
+    "email": "marcos.roman.valverde@est.una.ac.cr",
+    "pais": "Costa Rica",
+    "codigoPais": "CR",
+    "estado": "Activo"
+  },
+  {
+    "id": "1-1823-0492",
+    "nombre": "Emanuel Soto Cordero",
+    "carrera": "Ingeniería en Sistemas de Información",
+    "nivel": "III Nivel",
+    "email": "emanuel.soto.cordero@est.una.ac.cr",
+    "pais": "Costa Rica",
+    "codigoPais": "CR",
+    "estado": "Activo"
+  },
+  {
+    "id": "4-0231-0814",
+    "nombre": "Anthony Cerdas Morales",
+    "carrera": "Ingeniería en Sistemas de Información",
+    "nivel": "III Nivel",
+    "email": "anthony.cerdas.morales@est.una.ac.cr",
+    "pais": "Costa Rica",
+    "codigoPais": "CR",
+    "estado": "Activo"
+  },
+  {
+    "id": "2-0745-0912",
+    "nombre": "Sofía Vargas Quirós",
+    "carrera": "Ingeniería en Sistemas de Información",
+    "nivel": "IV Nivel",
+    "email": "sofia.vargas.quiros@est.una.ac.cr",
+    "pais": "Costa Rica",
+    "codigoPais": "CR",
+    "estado": "Activo"
+  },
+  {
+    "id": "7-0199-0341",
+    "nombre": "Gabriel Méndez Solano",
+    "carrera": "Ingeniería en Sistemas de Información",
+    "nivel": "III Nivel",
+    "email": "gabriel.mendez.solano@est.una.ac.cr",
+    "pais": "Costa Rica",
+    "codigoPais": "CR",
+    "estado": "Activo"
+  },
+  {
+    "id": "P-9021-4410",
+    "nombre": "Elena Becker",
+    "carrera": "Intercambio Internacional - Informática",
+    "nivel": "III Nivel",
+    "email": "elena.becker@exchange.una.ac.cr",
+    "pais": "Alemania",
+    "codigoPais": "DE",
+    "estado": "Intercambio"
+  }
+]

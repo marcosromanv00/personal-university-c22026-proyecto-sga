@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión y Registro Académico (REST) | SGA Distribuido</title>
+    <meta name="description" content="Interfaz de gestión, registro y modificación académica mediante operaciones REST (POST, PUT, DELETE).">
+    <link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+    <!-- HEADER ÚNICO CONSOLIDADO (Anti-Slop: Zero Top-Bars) -->
+    <header class="header-principal">
+        <div class="header-container">
+            <a href="/" class="brand-wrapper">
+                <div class="brand-monogram">UNA</div>
+                <div class="brand-info">
+                    <h1>SGA Distribuido</h1>
+                    <p>Escuela de Informática - Grupo #6</p>
+                </div>
+            </a>
+            <nav class="nav-principal" aria-label="Navegación del Sistema">
+                <a href="/" class="nav-link">Dashboard</a>
+                <a href="/consulta" class="nav-link">Consulta REST</a>
+                <a href="/gestion" class="nav-link active">Gestión Académica</a>
+                <a href="/reportes" class="nav-link">RPC y Servicios Web</a>
+            </nav>
+            <div class="header-meta">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span>REST POST/PUT/DELETE</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL: INTERFAZ 3 (GESTIÓN REST) -->
+    <main class="main-wrapper">
+        <header class="page-header">
+            <h2>Gestión y Registro Académico (Operaciones REST)</h2>
+            <p>Implementación completa del ciclo CRUD sobre el servicio distribuido mediante solicitudes <code>POST</code> (crear), <code>PUT</code> (modificar) y <code>DELETE</code> (eliminar).</p>
+        </header>
+
+        <!-- SECCIÓN 1: REGISTRO DE NUEVO ESTUDIANTE (POST) -->
+        <section class="section-card">
+            <div class="section-title">
+                <span>1. Registrar Nuevo Estudiante (Solicitud REST POST)</span>
+            </div>
+            <form id="formCrearEstudiante" onsubmit="handleCrearEstudiante(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="estId">Identificación / Cédula *</label>
+                        <input type="text" id="estId" placeholder="Ej: 1-0982-0193" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="estNombre">Nombre Completo *</label>
+                        <input type="text" id="estNombre" placeholder="Ej: Valeria Campos Solano" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="estCarrera">Carrera Universitaria</label>
+                        <select id="estCarrera">
+                            <option value="Ingeniería en Sistemas de Información">Ingeniería en Sistemas de Información</option>
+                            <option value="Ingeniería en Ciencias de la Computación">Ingeniería en Ciencias de la Computación</option>
+                            <option value="Intercambio Internacional - Informática">Intercambio Internacional - Informática</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="estPais">País de Procedencia</label>
+                        <select id="estPais">
+                            <option value="Costa Rica|CR">Costa Rica (CR)</option>
+                            <option value="Alemania|DE">Alemania (DE)</option>
+                            <option value="España|ES">España (ES)</option>
+                            <option value="México|MX">México (MX)</option>
+                            <option value="Estados Unidos|US">Estados Unidos (US)</option>
+                            <option value="Colombia|CO">Colombia (CO)</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width" style="margin-top:8px;">
+                        <button type="submit" class="btn btn-primary">Registrar Estudiante (POST /api/academico/estudiantes)</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- SECCIÓN 2: FORMALIZAR MATRÍCULA (POST) -->
+        <section class="section-card">
+            <div class="section-title">
+                <span>2. Matricular Estudiante en Curso (Solicitud REST POST)</span>
+            </div>
+            <form id="formMatricular" onsubmit="handleMatricular(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="selectMatEstudiante">Seleccionar Estudiante *</label>
+                        <select id="selectMatEstudiante" required>
+                            <option value="">Cargando estudiantes...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="selectMatCurso">Seleccionar Curso *</label>
+                        <select id="selectMatCurso" required>
+                            <option value="">Cargando cursos...</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width" style="margin-top:8px;">
+                        <button type="submit" class="btn btn-primary">Formalizar Matrícula (POST /api/academico/matriculas)</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- SECCIÓN 3: ASIGNAR / ACTUALIZAR CALIFICACIONES (PUT) -->
+        <section class="section-card">
+            <div class="section-title">
+                <span>3. Actualizar Calificaciones (Solicitud REST PUT)</span>
+            </div>
+            <form id="formCalificaciones" onsubmit="handleActualizarCalificaciones(event)">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="selectMatriculaCalificar">Seleccionar Registro de Matrícula Activa *</label>
+                        <select id="selectMatriculaCalificar" onchange="cargarNotasMatriculaSeleccionada()" required>
+                            <option value="">Cargando matrículas activas...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="calP1">Parcial 1 (25%):</label>
+                        <input type="number" id="calP1" min="0" max="100" step="0.5" value="85" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="calP2">Parcial 2 (25%):</label>
+                        <input type="number" id="calP2" min="0" max="100" step="0.5" value="88" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="calProy">Proyecto de Sistemas Distribuidos (30%):</label>
+                        <input type="number" id="calProy" min="0" max="100" step="0.5" value="95" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="calLabs">Laboratorios y Quices (20%):</label>
+                        <input type="number" id="calLabs" min="0" max="100" step="0.5" value="90" required>
+                    </div>
+                    <div class="form-group full-width" style="margin-top:8px;">
+                        <button type="submit" class="btn btn-secondary">Guardar Calificaciones (PUT /api/academico/calificaciones)</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- SECCIÓN 4: ELIMINACIÓN DE REGISTROS (DELETE) -->
+        <section class="section-card">
+            <div class="section-title">
+                <span>4. Baja / Eliminación de Expediente (Solicitud REST DELETE)</span>
+            </div>
+            <div class="form-grid" style="grid-template-columns: 2fr 1fr; align-items: end;">
+                <div class="form-group">
+                    <label for="selectEliminarEstudiante">Estudiante a eliminar del sistema:</label>
+                    <select id="selectEliminarEstudiante">
+                        <option value="">Seleccione un estudiante...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-danger" onclick="handleEliminarEstudiante()">Eliminar (DELETE /api/academico/estudiantes/:id)</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- INSPECTOR DE TRAZA REST -->
+        <section class="inspector-panel" aria-label="Inspector REST">
+            <div class="inspector-header">
+                <span>Inspector de Solicitudes REST (POST, PUT, DELETE)</span>
+                <span class="inspector-meta" id="inspectorMeta">Listo para enviar mutación REST</span>
+            </div>
+            <div class="inspector-body" id="inspectorBody">// Al ejecutar una operación POST, PUT o DELETE, la traza completa se desplegará aquí...</div>
+        </section>
+    </main>
+
+    <!-- FOOTER TRADICIONAL AUTORITATIVO (Anti-Slop: 4 Columnas) -->
+    <footer class="footer-principal">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h4>Universidad Nacional</h4>
+                <p>Escuela de Informática - Campus Omar Dengo, Heredia, Costa Rica.</p>
+                <p>Sistema de Gestión Académica Distribuido desarrollado para el curso de Sistemas Distribuidos (C2-2026).</p>
+            </div>
+            <div class="footer-col">
+                <h4>Módulos del Sistema</h4>
+                <ul>
+                    <li><a href="/">Dashboard General</a></li>
+                    <li><a href="/consulta">Consulta de Expedientes (REST)</a></li>
+                    <li><a href="/gestion">Gestión de Matrícula (CRUD)</a></li>
+                    <li><a href="/reportes">Auditoría RPC & Servicios Web</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Marco de Cátedra</h4>
+                <p>Curso: Sistemas Distribuidos</p>
+                <p>Profesor: M.Sc. Luis Raúl</p>
+                <p>Implementación: Operaciones REST POST, PUT y DELETE según Semana 2.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Equipo de Trabajo (Grupo 6)</h4>
+                <div class="team-member">Marcos Román Valverde <span class="team-id">(3-0529-0253)</span></div>
+                <div class="team-member">Emanuel Soto Cordero <span class="team-id">(1-1823-0492)</span></div>
+                <div class="team-member">Anthony Cerdas Morales <span class="team-id">(4-0231-0814)</span></div>
+            </div>
+        </div>
+        <div class="footer-colophon">
+            <span>&copy; 2026 Universidad Nacional de Costa Rica. Todos los derechos reservados.</span>
+            <button type="button" class="btn-top" onclick="volverArriba()">Volver arriba &uarr;</button>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    <script>
+        let listaEstudiantes = [];
+        let listaCursos = [];
+        let listaMatriculasPlanas = [];
+
+        async function cargarCatalogos() {
+            try {
+                const [resEst, resCur] = await Promise.all([
+                    fetch("/api/academico/estudiantes"),
+                    fetch("/api/academico/cursos")
+                ]);
+
+                const dataEst = await resEst.json();
+                const dataCur = await resCur.json();
+
+                listaEstudiantes = dataEst.datos || [];
+                listaCursos = dataCur.datos || [];
+
+                // Poblar selects de estudiantes
+                const selectEstMat = document.getElementById("selectMatEstudiante");
+                const selectEstDel = document.getElementById("selectEliminarEstudiante");
+                const selectMatCal = document.getElementById("selectMatriculaCalificar");
+
+                const opcionesEst = listaEstudiantes.map(e => `<option value="${e.id}">${e.nombre} (${e.id})</option>`).join("");
+                selectEstMat.innerHTML = `<option value="">-- Seleccionar Estudiante --</option>` + opcionesEst;
+                selectEstDel.innerHTML = `<option value="">-- Seleccionar Estudiante a dar de baja --</option>` + opcionesEst;
+
+                // Poblar select de cursos
+                const selectCur = document.getElementById("selectMatCurso");
+                selectCur.innerHTML = `<option value="">-- Seleccionar Curso --</option>` +
+                    listaCursos.map(c => `<option value="${c.id}">${c.id} - ${c.nombre} (${c.cuposDisponibles} cupos disp.)</option>`).join("");
+
+                // Poblar matrículas para calificar
+                listaMatriculasPlanas = [];
+                listaEstudiantes.forEach(est => {
+                    (est.matriculas || []).forEach(m => {
+                        listaMatriculasPlanas.push({
+                            ...m,
+                            estudianteNombre: est.nombre
+                        });
+                    });
+                });
+
+                selectMatCal.innerHTML = `<option value="">-- Seleccionar Matrícula --</option>` +
+                    listaMatriculasPlanas.map(m => `<option value="${m.id}">${m.estudianteNombre} &bull; ${m.cursoId} - ${m.cursoNombre} (Actual: ${m.notaFinal})</option>`).join("");
+
+            } catch (err) {
+                mostrarToast("Error inicializando catálogos: " + err.message, "error");
+            }
+        }
+
+        async function handleCrearEstudiante(e) {
+            e.preventDefault();
+            const id = document.getElementById("estId").value.trim();
+            const nombre = document.getElementById("estNombre").value.trim();
+            const carrera = document.getElementById("estCarrera").value;
+            const [pais, codigoPais] = document.getElementById("estPais").value.split("|");
+
+            const body = { id, nombre, carrera, pais, codigoPais, nivel: "I Nivel" };
+            const t0 = performance.now();
+
+            try {
+                const res = await fetch("/api/academico/estudiantes", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(body)
+                });
+                const json = await res.json();
+                const latencia = Math.round(performance.now() - t0);
+
+                actualizarInspector({
+                    metodo: "POST",
+                    url: "/api/academico/estudiantes",
+                    requestBody: body,
+                    status: res.status,
+                    responseBody: json,
+                    tiempoMs: latencia
+                });
+
+                if (res.ok) {
+                    mostrarToast("Estudiante creado satisfactoriamente (POST 201)", "success");
+                    document.getElementById("formCrearEstudiante").reset();
+                    await cargarCatalogos();
+                } else {
+                    mostrarToast("Error: " + (json.error || "No se pudo registrar"), "error");
+                }
+            } catch (err) {
+                mostrarToast("Error en solicitud POST: " + err.message, "error");
+            }
+        }
+
+        async function handleMatricular(e) {
+            e.preventDefault();
+            const estudianteId = document.getElementById("selectMatEstudiante").value;
+            const cursoId = document.getElementById("selectMatCurso").value;
+
+            if (!estudianteId || !cursoId) {
+                mostrarToast("Seleccione estudiante y curso.", "error");
+                return;
+            }
+
+            const body = { estudianteId, cursoId };
+            const t0 = performance.now();
+
+            try {
+                const res = await fetch("/api/academico/matriculas", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(body)
+                });
+                const json = await res.json();
+                const latencia = Math.round(performance.now() - t0);
+
+                actualizarInspector({
+                    metodo: "POST",
+                    url: "/api/academico/matriculas",
+                    requestBody: body,
+                    status: res.status,
+                    responseBody: json,
+                    tiempoMs: latencia
+                });
+
+                if (res.ok) {
+                    mostrarToast("Matrícula procesada correctamente (POST 201)", "success");
+                    await cargarCatalogos();
+                } else {
+                    mostrarToast("Error: " + (json.error || "Fallo al matricular"), "error");
+                }
+            } catch (err) {
+                mostrarToast("Error en solicitud POST: " + err.message, "error");
+            }
+        }
+
+        function cargarNotasMatriculaSeleccionada() {
+            const matId = document.getElementById("selectMatriculaCalificar").value;
+            const mat = listaMatriculasPlanas.find(m => m.id === matId);
+            if (mat) {
+                document.getElementById("calP1").value = mat.parcial1 || 0;
+                document.getElementById("calP2").value = mat.parcial2 || 0;
+                document.getElementById("calProy").value = mat.proyecto || 0;
+                document.getElementById("calLabs").value = mat.laboratorios || 0;
+            }
+        }
+
+        async function handleActualizarCalificaciones(e) {
+            e.preventDefault();
+            const matriculaId = document.getElementById("selectMatriculaCalificar").value;
+            if (!matriculaId) {
+                mostrarToast("Seleccione una matrícula para calificar.", "error");
+                return;
+            }
+
+            const body = {
+                matriculaId,
+                parcial1: Number(document.getElementById("calP1").value),
+                parcial2: Number(document.getElementById("calP2").value),
+                proyecto: Number(document.getElementById("calProy").value),
+                laboratorios: Number(document.getElementById("calLabs").value)
+            };
+
+            const t0 = performance.now();
+
+            try {
+                const res = await fetch("/api/academico/calificaciones", {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(body)
+                });
+                const json = await res.json();
+                const latencia = Math.round(performance.now() - t0);
+
+                actualizarInspector({
+                    metodo: "PUT",
+                    url: "/api/academico/calificaciones",
+                    requestBody: body,
+                    status: res.status,
+                    responseBody: json,
+                    tiempoMs: latencia
+                });
+
+                if (res.ok) {
+                    mostrarToast("Calificaciones actualizadas con éxito (PUT 200)", "success");
+                    await cargarCatalogos();
+                } else {
+                    mostrarToast("Error: " + (json.error || "No se pudo actualizar"), "error");
+                }
+            } catch (err) {
+                mostrarToast("Error en solicitud PUT: " + err.message, "error");
+            }
+        }
+
+        async function handleEliminarEstudiante() {
+            const id = document.getElementById("selectEliminarEstudiante").value;
+            if (!id) {
+                mostrarToast("Seleccione el estudiante que desea dar de baja.", "error");
+                return;
+            }
+
+            if (!confirm(`¿Está seguro de eliminar el estudiante con identificación ${id}? Esta acción invocará DELETE en el servicio REST.`)) {
+                return;
+            }
+
+            const t0 = performance.now();
+            const url = `/api/academico/estudiantes/${encodeURIComponent(id)}`;
+
+            try {
+                const res = await fetch(url, { method: "DELETE" });
+                const json = await res.json();
+                const latencia = Math.round(performance.now() - t0);
+
+                actualizarInspector({
+                    metodo: "DELETE",
+                    url: url,
+                    status: res.status,
+                    responseBody: json,
+                    tiempoMs: latencia
+                });
+
+                if (res.ok) {
+                    mostrarToast(`Estudiante ${id} eliminado satisfactoriamente (DELETE 200)`, "success");
+                    await cargarCatalogos();
+                } else {
+                    mostrarToast("Error: " + (json.error || "No se pudo eliminar"), "error");
+                }
+            } catch (err) {
+                mostrarToast("Error en solicitud DELETE: " + err.message, "error");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", cargarCatalogos);
+    </script>
+</body>
+</html>

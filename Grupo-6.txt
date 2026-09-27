@@ -1,0 +1,25 @@
+================================================================================
+UNIVERSIDAD NACIONAL (UNA) - ESCUELA DE INFORMÁTICA
+CURSO: SISTEMAS DISTRIBUIDOS (C2-2026)
+GRUPO NÚMERO: 6
+TEMA ASIGNADO: Tema 3 - Sistema de gestión académica
+================================================================================
+
+INTEGRANTES DEL EQUIPO:
+
+1. Nombre Completo: Marcos Román Valverde
+   Cédula: 3-0529-0253
+   Correo Institucional: marcos.roman.valverde@est.una.ac.cr
+
+2. Nombre Completo: Emanuel Soto Cordero
+   Cédula: 1-1823-0492
+   Correo Institucional: emanuel.soto.cordero@est.una.ac.cr
+
+3. Nombre Completo: Anthony Cerdas Morales
+   Cédula: 4-0231-0814
+   Correo Institucional: anthony.cerdas.morales@est.una.ac.cr
+
+================================================================================
+FECHA DE ENTREGA: 02 de Octubre del 2026
+PROFESOR: M.Sc. Luis Raúl
+================================================================================

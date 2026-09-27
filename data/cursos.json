@@ -1,0 +1,52 @@
+[
+  {
+    "id": "EIF-401",
+    "nombre": "Sistemas Distribuidos",
+    "creditos": 4,
+    "profesor": "M.Sc. Luis Raúl",
+    "aula": "Laboratorio 04 - Informática",
+    "horario": "Jueves 17:00 - 21:00",
+    "cupoMaximo": 30,
+    "ciclo": "II Ciclo 2026"
+  },
+  {
+    "id": "EIF-402",
+    "nombre": "Arquitectura de Software Empresarial",
+    "creditos": 4,
+    "profesor": "Dra. Marcela Hernández",
+    "aula": "Aula 204",
+    "horario": "Lunes 18:00 - 21:30",
+    "cupoMaximo": 25,
+    "ciclo": "II Ciclo 2026"
+  },
+  {
+    "id": "EIF-305",
+    "nombre": "Bases de Datos Avanzadas",
+    "creditos": 4,
+    "profesor": "Ing. Carlos Montero",
+    "aula": "Laboratorio 02",
+    "horario": "Martes 13:00 - 17:00",
+    "cupoMaximo": 28,
+    "ciclo": "II Ciclo 2026"
+  },
+  {
+    "id": "EIF-310",
+    "nombre": "Redes y Comunicaciones de Datos",
+    "creditos": 3,
+    "profesor": "Ing. Roberto Solís",
+    "aula": "Aula 102",
+    "horario": "Miércoles 08:00 - 12:00",
+    "cupoMaximo": 30,
+    "ciclo": "II Ciclo 2026"
+  },
+  {
+    "id": "MAT-020",
+    "nombre": "Probabilidad y Estadística Aplicada",
+    "creditos": 3,
+    "profesor": "Lic. Andrea Alvarado",
+    "aula": "Aula 301",
+    "horario": "Viernes 08:00 - 11:30",
+    "cupoMaximo": 35,
+    "ciclo": "II Ciclo 2026"
+  }
+]
