@@ -73,7 +73,7 @@ app.use((req, res) => {
     });
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log("=================================================================");
     console.log("   SISTEMA DE GESTIÓN ACADÉMICA DISTRIBUIDO (SGA-UNA)");
     console.log("   Universidad Nacional - Escuela de Informática (C2-2026)");
@@ -90,3 +90,14 @@ app.listen(PORT, () => {
     console.log("   Web Services: /api/web-services (GraphQL Integración)");
     console.log("=================================================================\n");
 });
+
+server.on("error", (err) => {
+    if (err.code === "EADDRINUSE") {
+        console.error(`\n[AVISO] El puerto ${PORT} ya está en uso por otro proceso de Node.`);
+        console.error(`Puedes liberarlo rápidamente ejecutando en PowerShell:`);
+        console.error(`Get-Process node | Stop-Process -Force\n`);
+    } else {
+        console.error("Error en servidor:", err);
+    }
+});
+
