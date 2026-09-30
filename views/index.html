@@ -3,21 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SGA Distribuido - Dashboard Institucional | UNA</title>
-    <meta name="description" content="Sistema de Gestión Académica Distribuido desarrollado para la Escuela de Informática de la Universidad Nacional. Integración REST, RPC y Servicios Web.">
+    <title>SGA Distribuido - Panel de Control Académico</title>
+    <meta name="description" content="Sistema de Gestión Académica Distribuido para la Escuela de Informática de la Universidad Nacional.">
     <link rel="stylesheet" href="/css/estilos.css">
 </head>
 <body>
-    <!-- HEADER ÚNICO CONSOLIDADO (Anti-Slop: Zero Top-Bars) -->
+    <!-- HEADER ÚNICO CONSOLIDADO (Limpio: Solo texto 'SGA Distribuido', sin logo) -->
     <header class="header-principal">
         <div class="header-container">
-            <a href="/" class="brand-wrapper">
-                <div class="brand-monogram">UNA</div>
-                <div class="brand-info">
-                    <h1>SGA Distribuido</h1>
-                    <p>Escuela de Informática - Grupo #6</p>
-                </div>
-            </a>
+            <a href="/" class="brand-title">SGA Distribuido</a>
             <nav class="nav-principal" aria-label="Navegación del Sistema">
                 <a href="/" class="nav-link active">Dashboard</a>
                 <a href="/consulta" class="nav-link">Consulta REST</a>
@@ -25,8 +19,7 @@
                 <a href="/reportes" class="nav-link">RPC y Servicios Web</a>
             </nav>
             <div class="header-meta">
-                <span class="status-dot" aria-hidden="true"></span>
-                <span>En Línea :3000</span>
+                <span>II Ciclo 2026 &bull; Grupo 6</span>
             </div>
         </div>
     </header>
@@ -35,7 +28,7 @@
     <main class="main-wrapper">
         <header class="page-header">
             <h2>Panel de Control Académico</h2>
-            <p>Monitoreo centralizado del sistema distribuido de la cohorte estudiantil, cursos habilitados y estado de los mecanismos de comunicación distribuida.</p>
+            <p>Resumen general del estado de la cohorte estudiantil, cursos habilitados y arquitectura de servicios distribuidos en el servidor.</p>
         </header>
 
         <!-- KPIS / RESUMEN DE INFORMACIÓN -->
@@ -43,13 +36,13 @@
             <article class="kpi-card">
                 <div class="kpi-label">Estudiantes Registrados</div>
                 <div class="kpi-value" id="kpiEstudiantes">--</div>
-                <div class="kpi-subtext">Población activa en plataforma</div>
+                <div class="kpi-subtext">Población activa</div>
             </article>
 
             <article class="kpi-card">
                 <div class="kpi-label">Cursos Ofertados</div>
                 <div class="kpi-value" id="kpiCursos">--</div>
-                <div class="kpi-subtext">Catálogo vigente II Ciclo 2026</div>
+                <div class="kpi-subtext">Catálogo vigente</div>
             </article>
 
             <article class="kpi-card">
@@ -68,17 +61,17 @@
         <!-- ARQUITECTURA DISTRIBUIDA Y ACCESOS A INTERFACES -->
         <section class="section-card">
             <div class="section-title">
-                <span>Ecosistema de Comunicación Distribuida</span>
+                <span>Servicios de Comunicación Distribuida</span>
             </div>
             <div class="table-container">
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>Mecanismo Distribuido</th>
-                            <th>Semana de Estudio</th>
+                            <th>Mecanismo</th>
+                            <th>Semana</th>
                             <th>Protocolo / Transporte</th>
-                            <th>Propósito en el SGA</th>
-                            <th>Interfaz Asociada</th>
+                            <th>Función en el Sistema</th>
+                            <th>Acceso</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -86,22 +79,22 @@
                             <td><strong>API REST</strong></td>
                             <td>Semana 2</td>
                             <td>HTTP (GET, POST, PUT, DELETE)</td>
-                            <td>Operaciones CRUD sobre expedientes de estudiantes, catálogo de cursos y matrículas.</td>
-                            <td><a href="/consulta" class="btn btn-secondary btn-sm">Ir a Consulta</a></td>
+                            <td>Gestión de recursos: estudiantes, catálogo de cursos y matrículas.</td>
+                            <td><a href="/consulta" class="btn btn-secondary btn-sm">Ver Consulta</a></td>
                         </tr>
                         <tr>
                             <td><strong>Procedimientos Remotos (RPC)</strong></td>
                             <td>Semana 3</td>
                             <td>JSON-RPC 2.0 sobre HTTP POST</td>
-                            <td>Cálculo remoto de promedio ponderado, auditoría de honor y analítica del grupo.</td>
-                            <td><a href="/reportes" class="btn btn-secondary btn-sm">Ir a RPC</a></td>
+                            <td>Cálculo remoto de promedio ponderado, auditoría de honor y analítica.</td>
+                            <td><a href="/reportes" class="btn btn-secondary btn-sm">Ver RPC</a></td>
                         </tr>
                         <tr>
                             <td><strong>Servicios Web Externos</strong></td>
                             <td>Semana 4</td>
-                            <td>GraphQL / REST Externo</td>
-                            <td>Homologación de estudiantes extranjeros, monedas y convenios internacionales.</td>
-                            <td><a href="/reportes" class="btn btn-secondary btn-sm">Ir a Servicios</a></td>
+                            <td>GraphQL sobre HTTP POST</td>
+                            <td>Homologación de estudiantes foráneos, monedas y convenios.</td>
+                            <td><a href="/reportes" class="btn btn-secondary btn-sm">Ver Servicios</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -111,8 +104,8 @@
         <!-- RESUMEN DE COHORTE RECIENTE -->
         <section class="section-card">
             <div class="section-title">
-                <span>Muestra de Estudiantes Activos en el Sistema</span>
-                <a href="/consulta" class="btn btn-primary btn-sm">Ver Todos</a>
+                <span>Estudiantes Activos en el Sistema</span>
+                <a href="/consulta" class="btn btn-secondary btn-sm">Ver Catálogo Completo</a>
             </div>
             <div class="table-container">
                 <table class="data-table">
@@ -121,30 +114,30 @@
                             <th>Identificación</th>
                             <th>Nombre Completo</th>
                             <th>Carrera</th>
-                            <th>País</th>
-                            <th>Cursos</th>
+                            <th>Procedencia</th>
+                            <th>Matrículas</th>
                             <th>Promedio</th>
-                            <th>Estado</th>
+                            <th>Condición</th>
                         </tr>
                     </thead>
                     <tbody id="tablaDashboardEstudiantes">
-                        <tr><td colspan="7" style="text-align:center; color: var(--text-muted);">Cargando datos desde servicio REST...</td></tr>
+                        <tr><td colspan="7" style="text-align:center; color: var(--text-muted);">Consultando servicio REST...</td></tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- CONSOLA DE INSPECCIÓN EN VIVO -->
+        <!-- INSPECTOR DE RED -->
         <section class="inspector-panel" aria-label="Traza Técnica">
             <div class="inspector-header">
-                <span>Inspector de Comunicación Distribuida</span>
-                <span class="inspector-meta" id="inspectorMeta">GET /api/academico/dashboard | Esperando solicitud</span>
+                <span>Inspector de Red (Comunicación Frontend - Backend)</span>
+                <span class="inspector-meta" id="inspectorMeta">GET /api/academico/dashboard | Inicializando</span>
             </div>
-            <div class="inspector-body" id="inspectorBody">// La traza de la comunicación entre cliente y servidor aparecerá aquí al interactuar...</div>
+            <div class="inspector-body" id="inspectorBody">// La traza de solicitudes HTTP aparecerá aquí...</div>
         </section>
     </main>
 
-    <!-- FOOTER TRADICIONAL AUTORITATIVO (Anti-Slop: 4 Columnas) -->
+    <!-- FOOTER TRADICIONAL AUTORITATIVO (Modo Claro) -->
     <footer class="footer-principal">
         <div class="footer-container">
             <div class="footer-col">
@@ -153,7 +146,7 @@
                 <p>Sistema de Gestión Académica Distribuido desarrollado para el curso de Sistemas Distribuidos (C2-2026).</p>
             </div>
             <div class="footer-col">
-                <h4>Módulos del Sistema</h4>
+                <h4>Módulos</h4>
                 <ul>
                     <li><a href="/">Dashboard General</a></li>
                     <li><a href="/consulta">Consulta de Expedientes (REST)</a></li>
@@ -162,20 +155,20 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Marco de Cátedra</h4>
+                <h4>Cátedra</h4>
                 <p>Curso: Sistemas Distribuidos</p>
                 <p>Profesor: M.Sc. Luis Raúl</p>
-                <p>Tecnologías: Node.js 24, Express, JSON-RPC 2.0, GraphQL, Persistencia Local.</p>
+                <p>Plataforma: Node.js 24, Express, JSON-RPC 2.0, GraphQL.</p>
             </div>
             <div class="footer-col">
-                <h4>Equipo de Trabajo (Grupo 6)</h4>
+                <h4>Grupo #6</h4>
                 <div class="team-member">Marcos Román Valverde <span class="team-id">(3-0529-0253)</span></div>
                 <div class="team-member">Emanuel Soto Cordero <span class="team-id">(1-1823-0492)</span></div>
                 <div class="team-member">Anthony Cerdas Morales <span class="team-id">(4-0231-0814)</span></div>
             </div>
         </div>
         <div class="footer-colophon">
-            <span>&copy; 2026 Universidad Nacional de Costa Rica. Todos los derechos reservados.</span>
+            <span>&copy; 2026 Universidad Nacional de Costa Rica. Sistema de Gestión Académica.</span>
             <button type="button" class="btn-top" onclick="volverArriba()">Volver arriba &uarr;</button>
         </div>
     </footer>

@@ -8,16 +8,10 @@
     <link rel="stylesheet" href="/css/estilos.css">
 </head>
 <body>
-    <!-- HEADER ÚNICO CONSOLIDADO (Anti-Slop: Zero Top-Bars) -->
+    <!-- HEADER ÚNICO CONSOLIDADO (Limpio: Solo texto 'SGA Distribuido', sin logo) -->
     <header class="header-principal">
         <div class="header-container">
-            <a href="/" class="brand-wrapper">
-                <div class="brand-monogram">UNA</div>
-                <div class="brand-info">
-                    <h1>SGA Distribuido</h1>
-                    <p>Escuela de Informática - Grupo #6</p>
-                </div>
-            </a>
+            <a href="/" class="brand-title">SGA Distribuido</a>
             <nav class="nav-principal" aria-label="Navegación del Sistema">
                 <a href="/" class="nav-link">Dashboard</a>
                 <a href="/consulta" class="nav-link active">Consulta REST</a>
@@ -25,8 +19,7 @@
                 <a href="/reportes" class="nav-link">RPC y Servicios Web</a>
             </nav>
             <div class="header-meta">
-                <span class="status-dot" aria-hidden="true"></span>
-                <span>REST GET :3000</span>
+                <span>II Ciclo 2026 &bull; Grupo 6</span>
             </div>
         </div>
     </header>
@@ -35,23 +28,23 @@
     <main class="main-wrapper">
         <header class="page-header">
             <h2>Consulta de Información (Solicitudes REST)</h2>
-            <p>Demostración práctica del protocolo REST mediante el método <code>GET</code>. Permite explorar expedientes académicos, catálogo de cursos y el detalle de calificaciones.</p>
+            <p>Exploración de expedientes estudiantiles, asignaturas y calificaciones mediante solicitudes HTTP <code>GET</code>.</p>
         </header>
 
         <!-- FILTROS Y CONTROLES DE CONSULTA -->
         <section class="section-card">
             <div class="section-title">
-                <span>Parámetros de Consulta REST</span>
-                <div style="display:flex; gap:10px;">
-                    <button type="button" class="btn btn-secondary btn-sm" id="btnVerEstudiantes" onclick="cambiarEntidad('estudiantes')">Ver Estudiantes</button>
-                    <button type="button" class="btn btn-secondary btn-sm" id="btnVerCursos" onclick="cambiarEntidad('cursos')">Ver Cursos</button>
-                    <button type="button" class="btn btn-primary btn-sm" onclick="recargarConsulta()">Recargar Datos (GET)</button>
+                <span>Parámetros de Consulta</span>
+                <div style="display:flex; gap:8px;">
+                    <button type="button" class="btn btn-primary btn-sm" id="btnVerEstudiantes" onclick="cambiarEntidad('estudiantes')">Estudiantes</button>
+                    <button type="button" class="btn btn-secondary btn-sm" id="btnVerCursos" onclick="cambiarEntidad('cursos')">Cursos</button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="recargarConsulta()">Actualizar (GET)</button>
                 </div>
             </div>
 
             <div class="form-grid" style="grid-template-columns: 2fr 1fr; align-items: end;">
                 <div class="form-group">
-                    <label for="filtroTexto">Búsqueda rápida en memoria / filtro de entidad:</label>
+                    <label for="filtroTexto">Búsqueda por texto:</label>
                     <input type="text" id="filtroTexto" placeholder="Buscar por identificación, nombre o código..." oninput="filtrarTabla()">
                 </div>
                 <div class="form-group">
@@ -69,7 +62,7 @@
         <section class="section-card">
             <div class="section-title">
                 <span id="tituloTabla">Lista de Estudiantes (Recurso: /api/academico/estudiantes)</span>
-                <span id="contadorRegistros" style="font-size: 13px; color: var(--text-muted); font-weight: normal;">0 registros encontrados</span>
+                <span id="contadorRegistros" style="font-size: 12px; color: var(--text-muted); font-weight: normal;">0 registros encontrados</span>
             </div>
 
             <div class="table-container">
@@ -78,16 +71,16 @@
                         <!-- Generado dinámicamente -->
                     </thead>
                     <tbody id="tbodyConsulta">
-                        <tr><td colspan="6" style="text-align:center; color: var(--text-muted);">Consultando servicio REST...</td></tr>
+                        <tr><td colspan="8" style="text-align:center; color: var(--text-muted);">Consultando servicio REST...</td></tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
         <!-- PANEL DE DETALLE EXPANDIDO DE MATRÍCULA -->
-        <section class="section-card" id="panelDetalleEstudiante" style="display:none;">
+        <section class="section-card" id="panelDetalleEstudiante" style="display:none; background-color: #fafbfc;">
             <div class="section-title">
-                <span>Expediente de Cursos y Calificaciones</span>
+                <span>Expediente de Calificaciones y Desglose</span>
                 <button type="button" class="btn btn-secondary btn-sm" onclick="cerrarDetalle()">Cerrar Detalle</button>
             </div>
             <div id="contenidoDetalle"></div>
@@ -96,14 +89,14 @@
         <!-- INSPECTOR DE TRAZA REST -->
         <section class="inspector-panel" aria-label="Traza REST">
             <div class="inspector-header">
-                <span>Inspector Técnico de la Solicitud REST</span>
-                <span class="inspector-meta" id="inspectorMeta">GET /api/academico/estudiantes | Inicializando</span>
+                <span>Inspector Técnico (HTTP GET /api/academico/estudiantes)</span>
+                <span class="inspector-meta" id="inspectorMeta">Inicializando</span>
             </div>
             <div class="inspector-body" id="inspectorBody">// El payload de la respuesta HTTP GET se mostrará aquí...</div>
         </section>
     </main>
 
-    <!-- FOOTER TRADICIONAL AUTORITATIVO (Anti-Slop: 4 Columnas) -->
+    <!-- FOOTER TRADICIONAL AUTORITATIVO (Modo Claro) -->
     <footer class="footer-principal">
         <div class="footer-container">
             <div class="footer-col">
@@ -112,7 +105,7 @@
                 <p>Sistema de Gestión Académica Distribuido desarrollado para el curso de Sistemas Distribuidos (C2-2026).</p>
             </div>
             <div class="footer-col">
-                <h4>Módulos del Sistema</h4>
+                <h4>Módulos</h4>
                 <ul>
                     <li><a href="/">Dashboard General</a></li>
                     <li><a href="/consulta">Consulta de Expedientes (REST)</a></li>
@@ -121,20 +114,20 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Marco de Cátedra</h4>
+                <h4>Cátedra</h4>
                 <p>Curso: Sistemas Distribuidos</p>
                 <p>Profesor: M.Sc. Luis Raúl</p>
-                <p>Implementación: Solicitudes REST GET según lo visto en Semana 2.</p>
+                <p>Implementación: Solicitudes REST GET según Semana 2.</p>
             </div>
             <div class="footer-col">
-                <h4>Equipo de Trabajo (Grupo 6)</h4>
+                <h4>Grupo #6</h4>
                 <div class="team-member">Marcos Román Valverde <span class="team-id">(3-0529-0253)</span></div>
                 <div class="team-member">Emanuel Soto Cordero <span class="team-id">(1-1823-0492)</span></div>
                 <div class="team-member">Anthony Cerdas Morales <span class="team-id">(4-0231-0814)</span></div>
             </div>
         </div>
         <div class="footer-colophon">
-            <span>&copy; 2026 Universidad Nacional de Costa Rica. Todos los derechos reservados.</span>
+            <span>&copy; 2026 Universidad Nacional de Costa Rica. Sistema de Gestión Académica.</span>
             <button type="button" class="btn-top" onclick="volverArriba()">Volver arriba &uarr;</button>
         </div>
     </footer>
@@ -207,12 +200,12 @@
                 tbody.innerHTML = lista.map(e => `
                     <tr>
                         <td><code>${e.id}</code></td>
-                        <td><strong>${e.nombre}</strong></td>
+                        <td><strong style="color:var(--text-primary);">${e.nombre}</strong></td>
                         <td>${e.carrera}</td>
                         <td>${e.nivel}</td>
                         <td>${e.pais} (${e.codigoPais})</td>
                         <td>${e.totalMatriculas} asignaturas</td>
-                        <td><strong>${e.promedioGeneral > 0 ? e.promedioGeneral : 'Sin notas'}</strong></td>
+                        <td><strong style="color:var(--text-primary);">${e.promedioGeneral > 0 ? e.promedioGeneral : 'Sin notas'}</strong></td>
                         <td>
                             <button type="button" class="btn btn-secondary btn-sm" onclick="verDetalleEstudiante('${e.id}')">Ver Detalle</button>
                         </td>
@@ -239,7 +232,7 @@
                 tbody.innerHTML = lista.map(c => `
                     <tr>
                         <td><code>${c.id}</code></td>
-                        <td><strong>${c.nombre}</strong></td>
+                        <td><strong style="color:var(--text-primary);">${c.nombre}</strong></td>
                         <td>${c.creditos} créditos</td>
                         <td>${c.profesor}</td>
                         <td>${c.horario} | ${c.aula}</td>
@@ -274,44 +267,46 @@
 
             let htmlMatriculas = "";
             if (!est.matriculas || est.matriculas.length === 0) {
-                htmlMatriculas = "<p style='color:var(--text-muted);'>El estudiante no registra cursos matriculados en este ciclo.</p>";
+                htmlMatriculas = "<p style='color:var(--text-muted); font-size:13px;'>El estudiante no registra cursos matriculados en este ciclo.</p>";
             } else {
                 htmlMatriculas = `
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Código</th>
-                                <th>Curso</th>
-                                <th>Parcial 1 (25%)</th>
-                                <th>Parcial 2 (25%)</th>
-                                <th>Proyecto (30%)</th>
-                                <th>Laboratorios (20%)</th>
-                                <th>Nota Final</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${est.matriculas.map(m => `
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
                                 <tr>
-                                    <td><code>${m.cursoId}</code></td>
-                                    <td>${m.cursoNombre}</td>
-                                    <td>${m.parcial1}</td>
-                                    <td>${m.parcial2}</td>
-                                    <td>${m.proyecto}</td>
-                                    <td>${m.laboratorios}</td>
-                                    <td><strong>${m.notaFinal}</strong></td>
-                                    <td><span class="${m.estado === 'Aprobado' ? 'tag-aprobado' : (m.estado === 'Aplazado' ? 'tag-aplazado' : 'tag-reprobado')}">${m.estado}</span></td>
+                                    <th>Código</th>
+                                    <th>Curso</th>
+                                    <th>Parcial 1 (25%)</th>
+                                    <th>Parcial 2 (25%)</th>
+                                    <th>Proyecto (30%)</th>
+                                    <th>Laboratorios (20%)</th>
+                                    <th>Nota Final</th>
+                                    <th>Estado</th>
                                 </tr>
-                            `).join("")}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                ${est.matriculas.map(m => `
+                                    <tr>
+                                        <td><code>${m.cursoId}</code></td>
+                                        <td>${m.cursoNombre}</td>
+                                        <td>${m.parcial1}</td>
+                                        <td>${m.parcial2}</td>
+                                        <td>${m.proyecto}</td>
+                                        <td>${m.laboratorios}</td>
+                                        <td><strong style="color:var(--text-primary);">${m.notaFinal}</strong></td>
+                                        <td><span class="${m.estado === 'Aprobado' ? 'tag-aprobado' : (m.estado === 'Aplazado' ? 'tag-aplazado' : 'tag-reprobado')}">${m.estado}</span></td>
+                                    </tr>
+                                `).join("")}
+                            </tbody>
+                        </table>
+                    </div>
                 `;
             }
 
             cont.innerHTML = `
-                <div style="margin-bottom:16px;">
-                    <h3 style="font-size:16px; font-weight:600; margin-bottom:4px;">${est.nombre} (${est.id})</h3>
-                    <p style="font-size:13px; color:var(--text-muted);">${est.carrera} &bull; ${est.nivel} &bull; ${est.email} &bull; Origen: ${est.pais}</p>
+                <div style="margin-bottom:14px;">
+                    <h3 style="font-size:15px; font-weight:600; color:var(--text-primary); margin-bottom:2px;">${est.nombre} (${est.id})</h3>
+                    <p style="font-size:13px; color:var(--text-muted);">${est.carrera} &bull; ${est.nivel} &bull; ${est.email} &bull; Procedencia: ${est.pais}</p>
                 </div>
                 ${htmlMatriculas}
             `;

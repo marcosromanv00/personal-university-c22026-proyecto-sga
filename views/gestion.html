@@ -8,16 +8,10 @@
     <link rel="stylesheet" href="/css/estilos.css">
 </head>
 <body>
-    <!-- HEADER ÚNICO CONSOLIDADO (Anti-Slop: Zero Top-Bars) -->
+    <!-- HEADER ÚNICO CONSOLIDADO (Limpio: Solo texto 'SGA Distribuido', sin logo) -->
     <header class="header-principal">
         <div class="header-container">
-            <a href="/" class="brand-wrapper">
-                <div class="brand-monogram">UNA</div>
-                <div class="brand-info">
-                    <h1>SGA Distribuido</h1>
-                    <p>Escuela de Informática - Grupo #6</p>
-                </div>
-            </a>
+            <a href="/" class="brand-title">SGA Distribuido</a>
             <nav class="nav-principal" aria-label="Navegación del Sistema">
                 <a href="/" class="nav-link">Dashboard</a>
                 <a href="/consulta" class="nav-link">Consulta REST</a>
@@ -25,8 +19,7 @@
                 <a href="/reportes" class="nav-link">RPC y Servicios Web</a>
             </nav>
             <div class="header-meta">
-                <span class="status-dot" aria-hidden="true"></span>
-                <span>REST POST/PUT/DELETE</span>
+                <span>II Ciclo 2026 &bull; Grupo 6</span>
             </div>
         </div>
     </header>
@@ -35,13 +28,13 @@
     <main class="main-wrapper">
         <header class="page-header">
             <h2>Gestión y Registro Académico (Operaciones REST)</h2>
-            <p>Implementación completa del ciclo CRUD sobre el servicio distribuido mediante solicitudes <code>POST</code> (crear), <code>PUT</code> (modificar) y <code>DELETE</code> (eliminar).</p>
+            <p>Implementación del ciclo CRUD sobre la capa de servicios mediante solicitudes <code>POST</code> (crear), <code>PUT</code> (modificar) y <code>DELETE</code> (eliminar).</p>
         </header>
 
         <!-- SECCIÓN 1: REGISTRO DE NUEVO ESTUDIANTE (POST) -->
         <section class="section-card">
             <div class="section-title">
-                <span>1. Registrar Nuevo Estudiante (Solicitud REST POST)</span>
+                <span>1. Registrar Estudiante (Solicitud REST POST)</span>
             </div>
             <form id="formCrearEstudiante" onsubmit="handleCrearEstudiante(event)">
                 <div class="form-grid">
@@ -72,7 +65,7 @@
                             <option value="Colombia|CO">Colombia (CO)</option>
                         </select>
                     </div>
-                    <div class="form-group full-width" style="margin-top:8px;">
+                    <div class="form-group full-width" style="margin-top:6px;">
                         <button type="submit" class="btn btn-primary">Registrar Estudiante (POST /api/academico/estudiantes)</button>
                     </div>
                 </div>
@@ -98,7 +91,7 @@
                             <option value="">Cargando cursos...</option>
                         </select>
                     </div>
-                    <div class="form-group full-width" style="margin-top:8px;">
+                    <div class="form-group full-width" style="margin-top:6px;">
                         <button type="submit" class="btn btn-primary">Formalizar Matrícula (POST /api/academico/matriculas)</button>
                     </div>
                 </div>
@@ -134,7 +127,7 @@
                         <label for="calLabs">Laboratorios y Quices (20%):</label>
                         <input type="number" id="calLabs" min="0" max="100" step="0.5" value="90" required>
                     </div>
-                    <div class="form-group full-width" style="margin-top:8px;">
+                    <div class="form-group full-width" style="margin-top:6px;">
                         <button type="submit" class="btn btn-secondary">Guardar Calificaciones (PUT /api/academico/calificaciones)</button>
                     </div>
                 </div>
@@ -162,14 +155,14 @@
         <!-- INSPECTOR DE TRAZA REST -->
         <section class="inspector-panel" aria-label="Inspector REST">
             <div class="inspector-header">
-                <span>Inspector de Solicitudes REST (POST, PUT, DELETE)</span>
-                <span class="inspector-meta" id="inspectorMeta">Listo para enviar mutación REST</span>
+                <span>Inspector Técnico (POST, PUT, DELETE)</span>
+                <span class="inspector-meta" id="inspectorMeta">Listo para procesar mutación</span>
             </div>
             <div class="inspector-body" id="inspectorBody">// Al ejecutar una operación POST, PUT o DELETE, la traza completa se desplegará aquí...</div>
         </section>
     </main>
 
-    <!-- FOOTER TRADICIONAL AUTORITATIVO (Anti-Slop: 4 Columnas) -->
+    <!-- FOOTER TRADICIONAL AUTORITATIVO (Modo Claro) -->
     <footer class="footer-principal">
         <div class="footer-container">
             <div class="footer-col">
@@ -178,7 +171,7 @@
                 <p>Sistema de Gestión Académica Distribuido desarrollado para el curso de Sistemas Distribuidos (C2-2026).</p>
             </div>
             <div class="footer-col">
-                <h4>Módulos del Sistema</h4>
+                <h4>Módulos</h4>
                 <ul>
                     <li><a href="/">Dashboard General</a></li>
                     <li><a href="/consulta">Consulta de Expedientes (REST)</a></li>
@@ -187,20 +180,20 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Marco de Cátedra</h4>
+                <h4>Cátedra</h4>
                 <p>Curso: Sistemas Distribuidos</p>
                 <p>Profesor: M.Sc. Luis Raúl</p>
                 <p>Implementación: Operaciones REST POST, PUT y DELETE según Semana 2.</p>
             </div>
             <div class="footer-col">
-                <h4>Equipo de Trabajo (Grupo 6)</h4>
+                <h4>Grupo #6</h4>
                 <div class="team-member">Marcos Román Valverde <span class="team-id">(3-0529-0253)</span></div>
                 <div class="team-member">Emanuel Soto Cordero <span class="team-id">(1-1823-0492)</span></div>
                 <div class="team-member">Anthony Cerdas Morales <span class="team-id">(4-0231-0814)</span></div>
             </div>
         </div>
         <div class="footer-colophon">
-            <span>&copy; 2026 Universidad Nacional de Costa Rica. Todos los derechos reservados.</span>
+            <span>&copy; 2026 Universidad Nacional de Costa Rica. Sistema de Gestión Académica.</span>
             <button type="button" class="btn-top" onclick="volverArriba()">Volver arriba &uarr;</button>
         </div>
     </footer>
@@ -224,7 +217,6 @@
                 listaEstudiantes = dataEst.datos || [];
                 listaCursos = dataCur.datos || [];
 
-                // Poblar selects de estudiantes
                 const selectEstMat = document.getElementById("selectMatEstudiante");
                 const selectEstDel = document.getElementById("selectEliminarEstudiante");
                 const selectMatCal = document.getElementById("selectMatriculaCalificar");
@@ -233,12 +225,10 @@
                 selectEstMat.innerHTML = `<option value="">-- Seleccionar Estudiante --</option>` + opcionesEst;
                 selectEstDel.innerHTML = `<option value="">-- Seleccionar Estudiante a dar de baja --</option>` + opcionesEst;
 
-                // Poblar select de cursos
                 const selectCur = document.getElementById("selectMatCurso");
                 selectCur.innerHTML = `<option value="">-- Seleccionar Curso --</option>` +
                     listaCursos.map(c => `<option value="${c.id}">${c.id} - ${c.nombre} (${c.cuposDisponibles} cupos disp.)</option>`).join("");
 
-                // Poblar matrículas para calificar
                 listaMatriculasPlanas = [];
                 listaEstudiantes.forEach(est => {
                     (est.matriculas || []).forEach(m => {

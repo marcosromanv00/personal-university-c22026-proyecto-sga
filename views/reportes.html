@@ -8,16 +8,10 @@
     <link rel="stylesheet" href="/css/estilos.css">
 </head>
 <body>
-    <!-- HEADER ÚNICO CONSOLIDADO (Anti-Slop: Zero Top-Bars) -->
+    <!-- HEADER ÚNICO CONSOLIDADO (Limpio: Solo texto 'SGA Distribuido', sin logo) -->
     <header class="header-principal">
         <div class="header-container">
-            <a href="/" class="brand-wrapper">
-                <div class="brand-monogram">UNA</div>
-                <div class="brand-info">
-                    <h1>SGA Distribuido</h1>
-                    <p>Escuela de Informática - Grupo #6</p>
-                </div>
-            </a>
+            <a href="/" class="brand-title">SGA Distribuido</a>
             <nav class="nav-principal" aria-label="Navegación del Sistema">
                 <a href="/" class="nav-link">Dashboard</a>
                 <a href="/consulta" class="nav-link">Consulta REST</a>
@@ -25,8 +19,7 @@
                 <a href="/reportes" class="nav-link active">RPC y Servicios Web</a>
             </nav>
             <div class="header-meta">
-                <span class="status-dot" aria-hidden="true"></span>
-                <span>JSON-RPC 2.0 & GraphQL</span>
+                <span>II Ciclo 2026 &bull; Grupo 6</span>
             </div>
         </div>
     </header>
@@ -35,7 +28,7 @@
     <main class="main-wrapper">
         <header class="page-header">
             <h2>Operaciones Especiales y Servicios Distribuidos</h2>
-            <p>Demostración práctica de los contenidos avanzados de <strong>Semana 3 (Procedimientos Remotos RPC)</strong> y <strong>Semana 4 (Servicios Web GraphQL)</strong> aplicados a la gestión académica institucional.</p>
+            <p>Demostración práctica de <strong>Procedimientos Remotos (RPC - Semana 3)</strong> bajo el estándar JSON-RPC 2.0 y de <strong>Servicios Web (GraphQL - Semana 4)</strong>.</p>
         </header>
 
         <!-- SECCIÓN 1: PROCEDIMIENTOS REMOTOS RPC (SEMANA 3) -->
@@ -43,15 +36,15 @@
             <div class="section-title">
                 <span>1. Procedimientos Remotos RPC (Protocolo JSON-RPC 2.0)</span>
             </div>
-            <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">
-                A diferencia de REST orientado a recursos, RPC invoca algoritmos remotos mediante <code>POST /api/rpc</code> con método explícito y parámetros.
+            <p style="font-size:13px; color:var(--text-muted); margin-bottom:18px;">
+                Invocación de algoritmos en el servidor Express mediante solicitudes <code>POST /api/rpc</code> con método explícito y parámetros.
             </p>
 
             <div class="form-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 20px;">
                 <!-- RPC 1: Promedio Ponderado -->
-                <div style="background-color:var(--bg-elevated); padding:16px; border-radius:8px; border:1px solid var(--border-subtle);">
-                    <h3 style="font-size:15px; font-weight:600; margin-bottom:8px;">A. Cálculo de Promedio Ponderado por Créditos</h3>
-                    <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Método RPC: <code>calcularPromedioPonderado</code></p>
+                <div style="background-color:#ffffff; padding:18px; border-radius:6px; border:1px solid var(--border-color);">
+                    <h3 style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">A. Cálculo de Promedio Ponderado por Créditos</h3>
+                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Método remoto: <code>calcularPromedioPonderado</code></p>
                     <div class="form-group" style="margin-bottom:12px;">
                         <label for="selectRpcEstudiante">Estudiante a auditar:</label>
                         <select id="selectRpcEstudiante">
@@ -62,13 +55,13 @@
                 </div>
 
                 <!-- RPC 2: Analítica de Cohorte -->
-                <div style="background-color:var(--bg-elevated); padding:16px; border-radius:8px; border:1px solid var(--border-subtle);">
-                    <h3 style="font-size:15px; font-weight:600; margin-bottom:8px;">B. Analítica Estadística de Rendimiento</h3>
-                    <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Método RPC: <code>analizarRendimientoGrupo</code></p>
+                <div style="background-color:#ffffff; padding:18px; border-radius:6px; border:1px solid var(--border-color);">
+                    <h3 style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">B. Analítica Estadística de Rendimiento</h3>
+                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Método remoto: <code>analizarRendimientoGrupo</code></p>
                     <div class="form-group" style="margin-bottom:12px;">
-                        <label for="selectRpcCurso">Curso a evaluar (o cohorte completa):</label>
+                        <label for="selectRpcCurso">Curso a evaluar:</label>
                         <select id="selectRpcCurso">
-                            <option value="">Todos los cursos del ciclo</option>
+                            <option value="">Todos los cursos del ciclo (General)</option>
                         </select>
                     </div>
                     <button type="button" class="btn btn-secondary btn-sm" onclick="invocarRpcEstadisticas()">Calcular Estadísticas Remotas</button>
@@ -76,8 +69,8 @@
             </div>
 
             <!-- RESULTADO VISUAL RPC -->
-            <div id="resultadoRpcBox" style="display:none; background-color:#050507; border:1px solid var(--border-subtle); border-radius:8px; padding:16px;">
-                <h4 id="resultadoRpcTitulo" style="font-size:14px; font-weight:600; margin-bottom:10px; color:var(--accent-sky);">Resultado del Procedimiento Remoto</h4>
+            <div id="resultadoRpcBox" style="display:none; background-color:#fafbfc; border:1px solid var(--border-color); border-radius:6px; padding:16px;">
+                <h4 id="resultadoRpcTitulo" style="font-size:14px; font-weight:600; margin-bottom:10px; color:var(--text-primary);">Resultado del Procedimiento Remoto</h4>
                 <div id="resultadoRpcContenido"></div>
             </div>
         </section>
@@ -87,15 +80,15 @@
             <div class="section-title">
                 <span>2. Integración con Servicios Web (Semana 4 - GraphQL)</span>
             </div>
-            <p style="font-size:14px; color:var(--text-secondary); margin-bottom:16px;">
-                Consumo del Servicio Web GraphQL de países y monedas (<code>https://countries.trevorblades.com/</code>) estudiado en clase para la homologación internacional de expedientes estudiantiles.
+            <p style="font-size:13px; color:var(--text-muted); margin-bottom:18px;">
+                Consumo del Servicio Web GraphQL de países y monedas (<code>https://countries.trevorblades.com/</code>) para la convalidación de estudiantes foráneos y aranceles de matrícula.
             </p>
 
             <div class="form-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 20px;">
                 <!-- Servicio Web 1: Homologación -->
-                <div style="background-color:var(--bg-elevated); padding:16px; border-radius:8px; border:1px solid var(--border-subtle);">
-                    <h3 style="font-size:15px; font-weight:600; margin-bottom:8px;">A. Convalidación de Estudiante Foráneo</h3>
-                    <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Valida país de origen, moneda y aranceles mediante GraphQL.</p>
+                <div style="background-color:#ffffff; padding:18px; border-radius:6px; border:1px solid var(--border-color);">
+                    <h3 style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">A. Convalidación de Estudiante Foráneo</h3>
+                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Valida país de procedencia, capital y moneda oficial vía GraphQL.</p>
                     <div class="form-group" style="margin-bottom:12px;">
                         <label for="selectWsEstudiante">Estudiante a convalidar:</label>
                         <select id="selectWsEstudiante">
@@ -106,9 +99,9 @@
                 </div>
 
                 <!-- Servicio Web 2: Catálogo Internacional -->
-                <div style="background-color:var(--bg-elevated); padding:16px; border-radius:8px; border:1px solid var(--border-subtle);">
-                    <h3 style="font-size:15px; font-weight:600; margin-bottom:8px;">B. Consulta GraphQL de Países con Convenio</h3>
-                    <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Ejecuta consulta <code>query { countries { code name emoji ... } }</code>.</p>
+                <div style="background-color:#ffffff; padding:18px; border-radius:6px; border:1px solid var(--border-color);">
+                    <h3 style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">B. Consulta GraphQL de Países con Convenio</h3>
+                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Ejecuta consulta <code>query { countries { code name emoji ... } }</code>.</p>
                     <div class="form-group" style="margin-bottom:12px;">
                         <label for="inputWsCodigoPais">Filtrar código de país (opcional):</label>
                         <input type="text" id="inputWsCodigoPais" placeholder="Ej: DE, ES, US, MX, CR">
@@ -118,23 +111,23 @@
             </div>
 
             <!-- RESULTADO VISUAL SERVICIO WEB -->
-            <div id="resultadoWsBox" style="display:none; background-color:#050507; border:1px solid var(--border-subtle); border-radius:8px; padding:16px;">
-                <h4 id="resultadoWsTitulo" style="font-size:14px; font-weight:600; margin-bottom:10px; color:var(--accent-emerald);">Respuesta del Servicio Web</h4>
+            <div id="resultadoWsBox" style="display:none; background-color:#fafbfc; border:1px solid var(--border-color); border-radius:6px; padding:16px;">
+                <h4 id="resultadoWsTitulo" style="font-size:14px; font-weight:600; margin-bottom:10px; color:var(--text-primary);">Respuesta del Servicio Web</h4>
                 <div id="resultadoWsContenido"></div>
             </div>
         </section>
 
-        <!-- INSPECTOR DE TRAZA TÉCNICA (EVIDENCIA PARA EL PROFESOR) -->
+        <!-- INSPECTOR DE TRAZA TÉCNICA (EVIDENCIA PARA LA PRESENTACIÓN) -->
         <section class="inspector-panel" aria-label="Consola de Protocolos">
             <div class="inspector-header">
-                <span>Inspector de Protocolos (Evidencia para Demostración en Clase)</span>
+                <span>Inspector Técnico (Sobre JSON-RPC 2.0 y Consulta GraphQL)</span>
                 <span class="inspector-meta" id="inspectorMeta">Seleccione una operación RPC o Servicio Web</span>
             </div>
-            <div class="inspector-body" id="inspectorBody">// El sobre JSON-RPC o la consulta GraphQL con su respuesta se mostrarán aquí con precisión técnica...</div>
+            <div class="inspector-body" id="inspectorBody">// El sobre JSON-RPC o la consulta GraphQL con su respuesta se mostrarán aquí...</div>
         </section>
     </main>
 
-    <!-- FOOTER TRADICIONAL AUTORITATIVO (Anti-Slop: 4 Columnas) -->
+    <!-- FOOTER TRADICIONAL AUTORITATIVO (Modo Claro) -->
     <footer class="footer-principal">
         <div class="footer-container">
             <div class="footer-col">
@@ -143,7 +136,7 @@
                 <p>Sistema de Gestión Académica Distribuido desarrollado para el curso de Sistemas Distribuidos (C2-2026).</p>
             </div>
             <div class="footer-col">
-                <h4>Módulos del Sistema</h4>
+                <h4>Módulos</h4>
                 <ul>
                     <li><a href="/">Dashboard General</a></li>
                     <li><a href="/consulta">Consulta de Expedientes (REST)</a></li>
@@ -152,20 +145,20 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Marco de Cátedra</h4>
+                <h4>Cátedra</h4>
                 <p>Curso: Sistemas Distribuidos</p>
                 <p>Profesor: M.Sc. Luis Raúl</p>
                 <p>Demostración: Solicitudes RPC (Semana 3) y Servicios Web (Semana 4).</p>
             </div>
             <div class="footer-col">
-                <h4>Equipo de Trabajo (Grupo 6)</h4>
+                <h4>Grupo #6</h4>
                 <div class="team-member">Marcos Román Valverde <span class="team-id">(3-0529-0253)</span></div>
                 <div class="team-member">Emanuel Soto Cordero <span class="team-id">(1-1823-0492)</span></div>
                 <div class="team-member">Anthony Cerdas Morales <span class="team-id">(4-0231-0814)</span></div>
             </div>
         </div>
         <div class="footer-colophon">
-            <span>&copy; 2026 Universidad Nacional de Costa Rica. Todos los derechos reservados.</span>
+            <span>&copy; 2026 Universidad Nacional de Costa Rica. Sistema de Gestión Académica.</span>
             <button type="button" class="btn-top" onclick="volverArriba()">Volver arriba &uarr;</button>
         </div>
     </footer>
@@ -241,22 +234,22 @@
                     document.getElementById("resultadoRpcTitulo").textContent = `Resultado RPC: ${r.nombre} (${r.estudianteId})`;
 
                     cont.innerHTML = `
-                        <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; margin-bottom:14px;">
-                            <div style="background:#121216; padding:10px; border-radius:6px; border:1px solid #27272a;">
-                                <div style="font-size:12px; color:var(--text-muted);">Promedio Ponderado</div>
-                                <div style="font-size:22px; font-weight:600; color:var(--accent-sky);">${r.promedioPonderado}</div>
+                        <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px;">
+                            <div style="background:#ffffff; padding:12px 14px; border-radius:6px; border:1px solid var(--border-color);">
+                                <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:var(--text-muted);">Promedio Ponderado</div>
+                                <div style="font-size:22px; font-weight:600; color:var(--text-primary); margin-top:2px;">${r.promedioPonderado}</div>
                             </div>
-                            <div style="background:#121216; padding:10px; border-radius:6px; border:1px solid #27272a;">
-                                <div style="font-size:12px; color:var(--text-muted);">Condición Académica</div>
-                                <div style="font-size:13px; font-weight:600; color:#34d399; margin-top:4px;">${r.condicionAcademica}</div>
+                            <div style="background:#ffffff; padding:12px 14px; border-radius:6px; border:1px solid var(--border-color);">
+                                <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:var(--text-muted);">Condición Académica</div>
+                                <div style="font-size:13px; font-weight:600; color:var(--tag-green-text); margin-top:6px;">${r.condicionAcademica}</div>
                             </div>
-                            <div style="background:#121216; padding:10px; border-radius:6px; border:1px solid #27272a;">
-                                <div style="font-size:12px; color:var(--text-muted);">Créditos Aprobados</div>
-                                <div style="font-size:22px; font-weight:600;">${r.creditosAprobados} / ${r.creditosTotales}</div>
+                            <div style="background:#ffffff; padding:12px 14px; border-radius:6px; border:1px solid var(--border-color);">
+                                <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:var(--text-muted);">Créditos Aprobados</div>
+                                <div style="font-size:20px; font-weight:600; color:var(--text-primary); margin-top:2px;">${r.creditosAprobados} / ${r.creditosTotales}</div>
                             </div>
-                            <div style="background:#121216; padding:10px; border-radius:6px; border:1px solid #27272a;">
-                                <div style="font-size:12px; color:var(--text-muted);">Cursos Matriculados</div>
-                                <div style="font-size:22px; font-weight:600;">${r.totalCursos}</div>
+                            <div style="background:#ffffff; padding:12px 14px; border-radius:6px; border:1px solid var(--border-color);">
+                                <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:var(--text-muted);">Cursos Matriculados</div>
+                                <div style="font-size:20px; font-weight:600; color:var(--text-primary); margin-top:2px;">${r.totalCursos}</div>
                             </div>
                         </div>
                     `;
@@ -307,21 +300,21 @@
 
                     cont.innerHTML = `
                         <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px;">
-                            <div style="background:#121216; padding:10px; border-radius:6px; border:1px solid #27272a;">
-                                <div style="font-size:12px; color:var(--text-muted);">Media Aritmética</div>
-                                <div style="font-size:22px; font-weight:600; color:var(--accent-sky);">${s.mediaAritmetica}</div>
+                            <div style="background:#ffffff; padding:12px 14px; border-radius:6px; border:1px solid var(--border-color);">
+                                <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:var(--text-muted);">Media Aritmética</div>
+                                <div style="font-size:22px; font-weight:600; color:var(--text-primary); margin-top:2px;">${s.mediaAritmetica}</div>
                             </div>
-                            <div style="background:#121216; padding:10px; border-radius:6px; border:1px solid #27272a;">
-                                <div style="font-size:12px; color:var(--text-muted);">Desviación Estándar</div>
-                                <div style="font-size:22px; font-weight:600;">&plusmn;${s.desviacionEstandar}</div>
+                            <div style="background:#ffffff; padding:12px 14px; border-radius:6px; border:1px solid var(--border-color);">
+                                <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:var(--text-muted);">Desviación Estándar</div>
+                                <div style="font-size:20px; font-weight:600; color:var(--text-primary); margin-top:2px;">&plusmn;${s.desviacionEstandar}</div>
                             </div>
-                            <div style="background:#121216; padding:10px; border-radius:6px; border:1px solid #27272a;">
-                                <div style="font-size:12px; color:var(--text-muted);">Rango (Mín / Máx)</div>
-                                <div style="font-size:20px; font-weight:600;">${s.notaMinima} - ${s.notaMaxima}</div>
+                            <div style="background:#ffffff; padding:12px 14px; border-radius:6px; border:1px solid var(--border-color);">
+                                <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:var(--text-muted);">Rango (Mín / Máx)</div>
+                                <div style="font-size:20px; font-weight:600; color:var(--text-primary); margin-top:2px;">${s.notaMinima} - ${s.notaMaxima}</div>
                             </div>
-                            <div style="background:#121216; padding:10px; border-radius:6px; border:1px solid #27272a;">
-                                <div style="font-size:12px; color:var(--text-muted);">Tasa de Aprobación</div>
-                                <div style="font-size:22px; font-weight:600; color:#34d399;">${s.tasaAprobacionPct}%</div>
+                            <div style="background:#ffffff; padding:12px 14px; border-radius:6px; border:1px solid var(--border-color);">
+                                <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:var(--text-muted);">Aprobación</div>
+                                <div style="font-size:22px; font-weight:600; color:var(--tag-green-text); margin-top:2px;">${s.tasaAprobacionPct}%</div>
                             </div>
                         </div>
                     `;
@@ -363,14 +356,14 @@
                     document.getElementById("resultadoWsTitulo").textContent = `Homologación Internacional: ${d.estudiante.nombre}`;
 
                     cont.innerHTML = `
-                        <div style="background:#121216; padding:14px; border-radius:6px; border:1px solid #27272a; margin-bottom:10px;">
+                        <div style="background:#ffffff; padding:14px 16px; border-radius:6px; border:1px solid var(--border-color);">
                             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                                <strong>País de Procedencia: ${d.homologacion.paisOficial}</strong>
-                                <span style="color:#34d399; font-size:13px; font-weight:500;">${d.homologacion.estadoValidacion}</span>
+                                <strong style="color:var(--text-primary); font-size:14px;">País de Procedencia: ${d.homologacion.paisOficial}</strong>
+                                <span class="tag-aprobado">${d.homologacion.estadoValidacion}</span>
                             </div>
                             <p style="font-size:13px; color:var(--text-secondary); margin-bottom:4px;">Capital Oficial: <strong>${d.homologacion.capital}</strong> &bull; Moneda Local: <strong>${d.homologacion.monedaOficial}</strong></p>
-                            <p style="font-size:13px; color:var(--text-secondary); margin-bottom:4px;">Arancel Calculado de Matrícula: <strong>$${d.homologacion.arancelCicloUSD} USD</strong> ${d.homologacion.aplicaConvenioMovilidad ? '(Aplica recargo internacional 15%)' : '(Tarifa estándar nacional)'}</p>
-                            <p style="font-size:12px; color:var(--text-muted); font-family:var(--font-mono); margin-top:8px;">Fuente técnica: ${d.trazaTecnica.fuente} (${d.trazaTecnica.endpoint})</p>
+                            <p style="font-size:13px; color:var(--text-secondary); margin-bottom:6px;">Arancel Calculado de Matrícula: <strong>$${d.homologacion.arancelCicloUSD} USD</strong> ${d.homologacion.aplicaConvenioMovilidad ? '(Aplica recargo internacional 15%)' : '(Tarifa estándar nacional)'}</p>
+                            <p style="font-size:11px; color:var(--text-muted); font-family:var(--font-mono);">${d.trazaTecnica.fuente} &bull; ${d.trazaTecnica.endpoint}</p>
                         </div>
                     `;
                     box.style.display = "block";
@@ -406,12 +399,12 @@
 
                 if (Array.isArray(r.datos)) {
                     cont.innerHTML = `
-                        <div style="font-size:13px; color:var(--text-muted); margin-bottom:10px;">${r.totalPaises} países disponibles para intercambio bilateral.</div>
-                        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:8px;">
+                        <div style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">${r.totalPaises} países disponibles para intercambio bilateral.</div>
+                        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:8px;">
                             ${r.datos.slice(0, 12).map(p => `
-                                <div style="background:#121216; padding:8px 12px; border-radius:6px; border:1px solid #27272a; font-size:13px;">
-                                    <strong>${p.emoji} ${p.name}</strong> (${p.code})<br>
-                                    <span style="color:var(--text-muted); font-size:12px;">Cap: ${p.capital || 'N/A'} | Moneda: ${p.currency || 'N/A'}</span>
+                                <div style="background:#ffffff; padding:8px 12px; border-radius:6px; border:1px solid var(--border-color); font-size:13px;">
+                                    <strong style="color:var(--text-primary);">${p.emoji} ${p.name}</strong> (${p.code})<br>
+                                    <span style="color:var(--text-muted); font-size:11px;">Cap: ${p.capital || 'N/A'} &bull; Moneda: ${p.currency || 'N/A'}</span>
                                 </div>
                             `).join("")}
                         </div>
@@ -419,13 +412,13 @@
                 } else if (r.datos) {
                     const p = r.datos;
                     cont.innerHTML = `
-                        <div style="background:#121216; padding:12px; border-radius:6px; border:1px solid #27272a;">
-                            <h5 style="font-size:15px; margin-bottom:6px;">${p.emoji} ${p.name} (${p.code})</h5>
-                            <p style="font-size:13px; color:var(--text-secondary);">Capital: <strong>${p.capital}</strong> &bull; Moneda: <strong>${p.currency}</strong></p>
+                        <div style="background:#ffffff; padding:12px 14px; border-radius:6px; border:1px solid var(--border-color);">
+                            <h5 style="font-size:14px; color:var(--text-primary); margin-bottom:4px;">${p.emoji} ${p.name} (${p.code})</h5>
+                            <p style="font-size:13px; color:var(--text-secondary);">Capital Oficial: <strong>${p.capital}</strong> &bull; Moneda Oficial: <strong>${p.currency}</strong></p>
                         </div>
                     `;
                 } else {
-                    cont.innerHTML = `<p style="color:var(--text-muted);">No se encontraron países para el código especificado.</p>`;
+                    cont.innerHTML = `<p style="color:var(--text-muted); font-size:13px;">No se encontraron países para el código especificado.</p>`;
                 }
 
                 box.style.display = "block";
