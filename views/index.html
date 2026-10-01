@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="/css/estilos.css">
 </head>
 <body>
-    <!-- HEADER ÚNICO CONSOLIDADO (Limpio: Solo texto 'SGA Distribuido', sin logo) -->
     <header class="header-principal">
         <div class="header-container">
             <a href="/" class="brand-title">SGA Distribuido</a>
@@ -24,14 +23,12 @@
         </div>
     </header>
 
-    <!-- CONTENIDO PRINCIPAL: INTERFAZ 1 (DASHBOARD) -->
     <main class="main-wrapper">
         <header class="page-header">
             <h2>Panel de Control Académico</h2>
-            <p>Resumen general del estado de la cohorte estudiantil, cursos habilitados y arquitectura de servicios distribuidos en el servidor.</p>
+            <p>Resumen institucional del estado de la cohorte estudiantil, oferta de asignaturas y operatividad de los servicios del sistema.</p>
         </header>
 
-        <!-- KPIS / RESUMEN DE INFORMACIÓN -->
         <section class="kpi-row" aria-label="Métricas Académicas">
             <article class="kpi-card">
                 <div class="kpi-label">Estudiantes Registrados</div>
@@ -58,53 +55,51 @@
             </article>
         </section>
 
-        <!-- ARQUITECTURA DISTRIBUIDA Y ACCESOS A INTERFACES -->
         <section class="section-card">
             <div class="section-title">
-                <span>Servicios de Comunicación Distribuida</span>
+                <span>Módulos y Servicios de la Plataforma</span>
             </div>
             <div class="table-container">
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>Mecanismo</th>
-                            <th>Semana</th>
-                            <th>Protocolo / Transporte</th>
-                            <th>Función en el Sistema</th>
+                            <th>Módulo del Sistema</th>
+                            <th>Protocolo de Red</th>
+                            <th>Regla de Negocio / Alcance</th>
+                            <th>Mapeo de Cátedra</th>
                             <th>Acceso</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>API REST</strong></td>
+                            <td><strong>Gestión de Expedientes y Matrícula</strong></td>
+                            <td>REST (HTTP Verbs)</td>
+                            <td>Ciclo de vida de recursos: alta de estudiantes, oferta de cursos y actas de matrícula.</td>
                             <td>Semana 2</td>
-                            <td>HTTP (GET, POST, PUT, DELETE)</td>
-                            <td>Gestión de recursos: estudiantes, catálogo de cursos y matrículas.</td>
-                            <td><a href="/consulta" class="btn btn-secondary btn-sm">Ver Consulta</a></td>
+                            <td><a href="/consulta" class="btn btn-secondary btn-sm">Abrir Módulo</a></td>
                         </tr>
                         <tr>
-                            <td><strong>Procedimientos Remotos (RPC)</strong></td>
+                            <td><strong>Motor de Cómputo y Ponderación</strong></td>
+                            <td>JSON-RPC 2.0 (HTTP POST)</td>
+                            <td>Cálculo remoto de promedios ponderados por créditos y analítica de rendimiento.</td>
                             <td>Semana 3</td>
-                            <td>JSON-RPC 2.0 sobre HTTP POST</td>
-                            <td>Cálculo remoto de promedio ponderado, auditoría de honor y analítica.</td>
-                            <td><a href="/reportes" class="btn btn-secondary btn-sm">Ver RPC</a></td>
+                            <td><a href="/reportes" class="btn btn-secondary btn-sm">Abrir Módulo</a></td>
                         </tr>
                         <tr>
-                            <td><strong>Servicios Web Externos</strong></td>
+                            <td><strong>Cooperación y Movilidad Internacional</strong></td>
+                            <td>GraphQL (HTTP POST)</td>
+                            <td>Convalidación de procedencia foránea y liquidación arancelaria con tolerancia a fallos.</td>
                             <td>Semana 4</td>
-                            <td>GraphQL sobre HTTP POST</td>
-                            <td>Homologación de estudiantes foráneos, monedas y convenios.</td>
-                            <td><a href="/reportes" class="btn btn-secondary btn-sm">Ver Servicios</a></td>
+                            <td><a href="/reportes" class="btn btn-secondary btn-sm">Abrir Módulo</a></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- RESUMEN DE COHORTE RECIENTE -->
         <section class="section-card">
             <div class="section-title">
-                <span>Estudiantes Activos en el Sistema</span>
+                <span>Población Estudiantil Registrada</span>
                 <a href="/consulta" class="btn btn-secondary btn-sm">Ver Catálogo Completo</a>
             </div>
             <div class="table-container">
@@ -121,23 +116,21 @@
                         </tr>
                     </thead>
                     <tbody id="tablaDashboardEstudiantes">
-                        <tr><td colspan="7" style="text-align:center; color: var(--text-muted);">Consultando servicio REST...</td></tr>
+                        <tr><td colspan="7" style="text-align:center; color: var(--text-muted);">Consultando registros del sistema...</td></tr>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- INSPECTOR DE RED -->
         <section class="inspector-panel" aria-label="Traza Técnica">
             <div class="inspector-header">
-                <span>Inspector de Red (Comunicación Frontend - Backend)</span>
-                <span class="inspector-meta" id="inspectorMeta">GET /api/academico/dashboard | Inicializando</span>
+                <span>Registro de Auditoría de Red y Transacciones</span>
+                <span class="inspector-meta" id="inspectorMeta">GET /api/academico/dashboard | En línea</span>
             </div>
-            <div class="inspector-body" id="inspectorBody">// La traza de solicitudes HTTP aparecerá aquí...</div>
+            <div class="inspector-body" id="inspectorBody">// Registro de transacciones entre cliente y servidor...</div>
         </section>
     </main>
 
-    <!-- FOOTER TRADICIONAL AUTORITATIVO (Modo Claro) -->
     <footer class="footer-principal">
         <div class="footer-container">
             <div class="footer-col">
@@ -199,7 +192,6 @@
                     document.getElementById("kpiAprobacion").textContent = `${d.porcentajeAprobacion}% tasa de aprobación`;
                 }
 
-                // Cargar muestra de estudiantes
                 const resEst = await fetch("/api/academico/estudiantes");
                 const jsonEst = await resEst.json();
                 const tbody = document.getElementById("tablaDashboardEstudiantes");

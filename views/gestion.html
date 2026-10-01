@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión y Registro Académico (REST) | SGA Distribuido</title>
+    <title>Gestión y Registro Académico | SGA Distribuido</title>
     <meta name="description" content="Interfaz de gestión, registro y modificación académica mediante operaciones REST (POST, PUT, DELETE).">
     <link rel="stylesheet" href="/css/estilos.css">
 </head>
 <body>
-    <!-- HEADER ÚNICO CONSOLIDADO (Limpio: Solo texto 'SGA Distribuido', sin logo) -->
     <header class="header-principal">
         <div class="header-container">
             <a href="/" class="brand-title">SGA Distribuido</a>
@@ -24,17 +23,16 @@
         </div>
     </header>
 
-    <!-- CONTENIDO PRINCIPAL: INTERFAZ 3 (GESTIÓN REST) -->
     <main class="main-wrapper">
         <header class="page-header">
-            <h2>Gestión y Registro Académico (Operaciones REST)</h2>
-            <p>Implementación del ciclo CRUD sobre la capa de servicios mediante solicitudes <code>POST</code> (crear), <code>PUT</code> (modificar) y <code>DELETE</code> (eliminar).</p>
+            <h2>Gestión Académica y Matrícula (Operaciones REST)</h2>
+            <p>Módulo para el registro de expedientes, asignación de cursos y asentamiento de actas de calificaciones mediante el protocolo REST.</p>
         </header>
 
-        <!-- SECCIÓN 1: REGISTRO DE NUEVO ESTUDIANTE (POST) -->
+        <!-- SECCIÓN 1: REGISTRO DE NUEVO ESTUDIANTE -->
         <section class="section-card">
             <div class="section-title">
-                <span>1. Registrar Estudiante (Solicitud REST POST)</span>
+                <span>1. Registro de Expediente Estudiantil</span>
             </div>
             <form id="formCrearEstudiante" onsubmit="handleCrearEstudiante(event)">
                 <div class="form-grid">
@@ -72,10 +70,10 @@
             </form>
         </section>
 
-        <!-- SECCIÓN 2: FORMALIZAR MATRÍCULA (POST) -->
+        <!-- SECCIÓN 2: FORMALIZAR MATRÍCULA -->
         <section class="section-card">
             <div class="section-title">
-                <span>2. Matricular Estudiante en Curso (Solicitud REST POST)</span>
+                <span>2. Formalización de Matrícula</span>
             </div>
             <form id="formMatricular" onsubmit="handleMatricular(event)">
                 <div class="form-grid">
@@ -98,11 +96,14 @@
             </form>
         </section>
 
-        <!-- SECCIÓN 3: ASIGNAR / ACTUALIZAR CALIFICACIONES (PUT) -->
+        <!-- SECCIÓN 3: ASENTAMIENTO DE CALIFICACIONES (ACTA DE NOTAS) -->
         <section class="section-card">
             <div class="section-title">
-                <span>3. Actualizar Calificaciones (Solicitud REST PUT)</span>
+                <span>3. Asentamiento de Calificaciones (Acta Oficial de Notas)</span>
             </div>
+            <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px;">
+                Reglamento Académico UNA: Ponderación oficial de 4 rubros: Parcial 1 (25%), Parcial 2 (25%), Proyecto de Sistemas Distribuidos (30%) y Laboratorios/Quices (20%). Condición calculada en servidor: Aprobado (&ge; 70.0), Aplazado (60.0 - 69.9) y Reprobado (&lt; 60.0).
+            </p>
             <form id="formCalificaciones" onsubmit="handleActualizarCalificaciones(event)">
                 <div class="form-grid">
                     <div class="form-group full-width">
@@ -128,41 +129,40 @@
                         <input type="number" id="calLabs" min="0" max="100" step="0.5" value="90" required>
                     </div>
                     <div class="form-group full-width" style="margin-top:6px;">
-                        <button type="submit" class="btn btn-secondary">Guardar Calificaciones (PUT /api/academico/calificaciones)</button>
+                        <button type="submit" class="btn btn-secondary">Guardar Calificaciones en Acta (PUT /api/academico/calificaciones)</button>
                     </div>
                 </div>
             </form>
         </section>
 
-        <!-- SECCIÓN 4: ELIMINACIÓN DE REGISTROS (DELETE) -->
+        <!-- SECCIÓN 4: DESMATRICULACIÓN / BAJA -->
         <section class="section-card">
             <div class="section-title">
-                <span>4. Baja / Eliminación de Expediente (Solicitud REST DELETE)</span>
+                <span>4. Desmatriculación y Retiro de Expediente</span>
             </div>
             <div class="form-grid" style="grid-template-columns: 2fr 1fr; align-items: end;">
                 <div class="form-group">
-                    <label for="selectEliminarEstudiante">Estudiante a eliminar del sistema:</label>
+                    <label for="selectEliminarEstudiante">Estudiante a dar de baja:</label>
                     <select id="selectEliminarEstudiante">
                         <option value="">Seleccione un estudiante...</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-danger" onclick="handleEliminarEstudiante()">Eliminar (DELETE /api/academico/estudiantes/:id)</button>
+                    <button type="button" class="btn btn-danger" onclick="handleEliminarEstudiante()">Ejecutar Baja (DELETE /api/academico/estudiantes/:id)</button>
                 </div>
             </div>
         </section>
 
-        <!-- INSPECTOR DE TRAZA REST -->
+        <!-- AUDITORÍA DE RED -->
         <section class="inspector-panel" aria-label="Inspector REST">
             <div class="inspector-header">
-                <span>Inspector Técnico (POST, PUT, DELETE)</span>
-                <span class="inspector-meta" id="inspectorMeta">Listo para procesar mutación</span>
+                <span>Registro de Transacción HTTP (Auditoría de Mutaciones)</span>
+                <span class="inspector-meta" id="inspectorMeta">Listo para procesar transacción</span>
             </div>
-            <div class="inspector-body" id="inspectorBody">// Al ejecutar una operación POST, PUT o DELETE, la traza completa se desplegará aquí...</div>
+            <div class="inspector-body" id="inspectorBody">// Detalle de la transacción HTTP ejecutada...</div>
         </section>
     </main>
 
-    <!-- FOOTER TRADICIONAL AUTORITATIVO (Modo Claro) -->
     <footer class="footer-principal">
         <div class="footer-container">
             <div class="footer-col">
@@ -276,7 +276,7 @@
                 });
 
                 if (res.ok) {
-                    mostrarToast("Estudiante creado satisfactoriamente (POST 201)", "success");
+                    mostrarToast("Estudiante registrado satisfactoriamente (POST 201)", "success");
                     document.getElementById("formCrearEstudiante").reset();
                     await cargarCatalogos();
                 } else {
@@ -377,7 +377,7 @@
                 });
 
                 if (res.ok) {
-                    mostrarToast("Calificaciones actualizadas con éxito (PUT 200)", "success");
+                    mostrarToast("Acta de notas actualizada con éxito (PUT 200)", "success");
                     await cargarCatalogos();
                 } else {
                     mostrarToast("Error: " + (json.error || "No se pudo actualizar"), "error");
@@ -394,7 +394,7 @@
                 return;
             }
 
-            if (!confirm(`¿Está seguro de eliminar el estudiante con identificación ${id}? Esta acción invocará DELETE en el servicio REST.`)) {
+            if (!confirm(`¿Confirma el retiro del expediente ${id}? Esta acción invocará DELETE en el servicio REST.`)) {
                 return;
             }
 
@@ -415,7 +415,7 @@
                 });
 
                 if (res.ok) {
-                    mostrarToast(`Estudiante ${id} eliminado satisfactoriamente (DELETE 200)`, "success");
+                    mostrarToast(`Expediente ${id} retirado correctamente (DELETE 200)`, "success");
                     await cargarCatalogos();
                 } else {
                     mostrarToast("Error: " + (json.error || "No se pudo eliminar"), "error");

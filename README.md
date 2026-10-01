@@ -13,7 +13,7 @@
 ---
 
 ## 1. Descripción del Proyecto
-El **Sistema de Gestión Académica Distribuido (SGA-UNA)** es una solución integral desarrollada para administrar estudiantes, cursos, expedientes y calificaciones en la Escuela de Informática. La plataforma integra en una arquitectura unificada los tres mecanismos de comunicación distribuida evaluados en la cátedra:
+El **Sistema de Gestión Académica Distribuido (SGA-UNA)** es una solución desarrollada para administrar estudiantes, cursos, expedientes de matrícula y calificaciones en la Escuela de Informática de la Universidad Nacional. La plataforma integra en una arquitectura unificada los tres mecanismos de comunicación distribuida evaluados en la cátedra:
 
 1. **Semana 2 — Solicitudes REST (CRUD Completo):** Endpoints con verbos `GET`, `POST`, `PUT`, `DELETE` y persistencia en archivos planos (`data/*.json`).
 2. **Semana 3 — Solicitudes RPC (JSON-RPC 2.0):** Algoritmos remotos en servidor para el cálculo de promedio ponderado semestral por créditos y analítica estadística de la cohorte estudiantil.
@@ -29,8 +29,7 @@ proyecto/
 ├── app.js                          # Servidor Express principal y orquestador distribuido
 ├── package.json                    # Dependencias y scripts del proyecto (Express)
 ├── Grupo-6.txt                     # Archivo oficial con datos de los integrantes
-├── spec.md                         # Especificación técnica formal (SDD)
-├── implementation_plan.md          # Plan quirúrgico de implementación
+├── README.md                       # Documentación técnica del proyecto
 ├── GUIA-DEMOSTRACION.md            # Guión cronometrado de 15 minutos para la defensa
 ├── docs/
 │   └── Grupo-6-SD-Explicacion.md   # Documentación técnica completa para entrega PDF
@@ -50,9 +49,9 @@ proyecto/
 │   └── webService.js               # Conector GraphQL y fallback resiliente
 └── public/                         # Archivos estáticos y Vistas
     ├── css/
-    │   └── estilos.css             # Estándar Dark Tech Craft y Anti-Slop UX
+    │   └── estilos.css             # Hojas de estilo institucionales
     ├── js/
-    │   └── main.js                 # Inspector de red y utilidades de cliente
+    │   └── main.js                 # Consola de auditoría y utilidades de cliente
     └── views/
         ├── index.html              # Interfaz 1: Dashboard y Monitoreo General
         ├── consulta.html           # Interfaz 2: Consulta REST GET
@@ -95,7 +94,7 @@ El servidor se iniciará en el puerto 3000. Acceder a las rutas oficiales:
 
 | Interfaz | URL Local | Descripción Técnica |
 | :--- | :--- | :--- |
-| **Interfaz 1: Dashboard** | `http://localhost:3000/` | Panel central con KPIs en tiempo real y mapa de protocolos. |
+| **Interfaz 1: Dashboard** | `http://localhost:3000/` | Panel central con indicadores en tiempo real y arquitectura de módulos. |
 | **Interfaz 2: Consulta REST** | `http://localhost:3000/consulta` | Búsqueda y visualización de expedientes vía solicitudes `GET`. |
 | **Interfaz 3: Gestión REST** | `http://localhost:3000/gestion` | Alta de estudiantes (`POST`), matrícula (`POST`), notas (`PUT`) y bajas (`DELETE`). |
 | **Interfaz 4: Operaciones Especiales** | `http://localhost:3000/reportes` | Procedimientos remotos **JSON-RPC 2.0** y consumo de **GraphQL**. |
@@ -138,5 +137,5 @@ Protocolo: **JSON-RPC 2.0** sobre transporte `HTTP POST`.
 Para generar el archivo ZIP de entrega exigido en la rúbrica oficial (nombre: `ProyectoP1-SD-Grupo-6.zip`):
 ```bash
 # En Windows PowerShell (excluyendo node_modules para ligereza):
-Compress-Archive -Path app.js, package.json, Grupo-6.txt, README.md, spec.md, implementation_plan.md, GUIA-DEMOSTRACION.md, docs, data, rest, rpc, web-services, services, public, views -DestinationPath ProyectoP1-SD-Grupo-6.zip
+Compress-Archive -Path app.js, package.json, Grupo-6.txt, README.md, GUIA-DEMOSTRACION.md, docs, data, rest, rpc, web-services, services, public, views -DestinationPath ProyectoP1-SD-Grupo-6.zip
 ```

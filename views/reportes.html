@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operaciones Especiales (RPC y Servicios Web) | SGA Distribuido</title>
+    <title>Operaciones Especiales y Servicios | SGA Distribuido</title>
     <meta name="description" content="Interfaz de operaciones especiales, procedimientos remotos JSON-RPC 2.0 y consumo de servicios web GraphQL.">
     <link rel="stylesheet" href="/css/estilos.css">
 </head>
 <body>
-    <!-- HEADER ÚNICO CONSOLIDADO (Limpio: Solo texto 'SGA Distribuido', sin logo) -->
     <header class="header-principal">
         <div class="header-container">
             <a href="/" class="brand-title">SGA Distribuido</a>
@@ -24,47 +23,46 @@
         </div>
     </header>
 
-    <!-- CONTENIDO PRINCIPAL: INTERFAZ 4 (OPERACIONES ESPECIALES) -->
     <main class="main-wrapper">
         <header class="page-header">
-            <h2>Operaciones Especiales y Servicios Distribuidos</h2>
-            <p>Demostración práctica de <strong>Procedimientos Remotos (RPC - Semana 3)</strong> bajo el estándar JSON-RPC 2.0 y de <strong>Servicios Web (GraphQL - Semana 4)</strong>.</p>
+            <h2>Cómputo Distribuido y Servicios Web</h2>
+            <p>Módulos de procesamiento analítico remoto mediante <strong>JSON-RPC 2.0 (Semana 3)</strong> e integración de <strong>Servicios Web GraphQL (Semana 4)</strong>.</p>
         </header>
 
         <!-- SECCIÓN 1: PROCEDIMIENTOS REMOTOS RPC (SEMANA 3) -->
         <section class="section-card">
             <div class="section-title">
-                <span>1. Procedimientos Remotos RPC (Protocolo JSON-RPC 2.0)</span>
+                <span>1. Cómputo y Auditoría Académica (Protocolo JSON-RPC 2.0)</span>
             </div>
             <p style="font-size:13px; color:var(--text-muted); margin-bottom:18px;">
-                Invocación de algoritmos en el servidor Express mediante solicitudes <code>POST /api/rpc</code> con método explícito y parámetros.
+                Invocación de algoritmos en el servidor Express mediante solicitudes <code>POST /api/rpc</code> con método explícito y parámetros. Permite ejecutar fórmulas de negocio pesadas en el servidor, aliviando el procesamiento del cliente.
             </p>
 
             <div class="form-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 20px;">
                 <!-- RPC 1: Promedio Ponderado -->
                 <div style="background-color:#ffffff; padding:18px; border-radius:6px; border:1px solid var(--border-color);">
                     <h3 style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">A. Cálculo de Promedio Ponderado por Créditos</h3>
-                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Método remoto: <code>calcularPromedioPonderado</code></p>
+                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Procedimiento: <code>calcularPromedioPonderado</code> &bull; Regla: &sum;(Nota &times; Créditos) / Total Créditos.</p>
                     <div class="form-group" style="margin-bottom:12px;">
                         <label for="selectRpcEstudiante">Estudiante a auditar:</label>
                         <select id="selectRpcEstudiante">
                             <option value="">Cargando estudiantes...</option>
                         </select>
                     </div>
-                    <button type="button" class="btn btn-primary btn-sm" onclick="invocarRpcPromedio()">Ejecutar RPC (JSON-RPC 2.0)</button>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="invocarRpcPromedio()">Ejecutar Cómputo RPC</button>
                 </div>
 
                 <!-- RPC 2: Analítica de Cohorte -->
                 <div style="background-color:#ffffff; padding:18px; border-radius:6px; border:1px solid var(--border-color);">
                     <h3 style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">B. Analítica Estadística de Rendimiento</h3>
-                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Método remoto: <code>analizarRendimientoGrupo</code></p>
+                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Procedimiento: <code>analizarRendimientoGrupo</code> &bull; Media, varianza poblacional y tasa de éxito.</p>
                     <div class="form-group" style="margin-bottom:12px;">
                         <label for="selectRpcCurso">Curso a evaluar:</label>
                         <select id="selectRpcCurso">
                             <option value="">Todos los cursos del ciclo (General)</option>
                         </select>
                     </div>
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="invocarRpcEstadisticas()">Calcular Estadísticas Remotas</button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="invocarRpcEstadisticas()">Ejecutar Analítica RPC</button>
                 </div>
             </div>
 
@@ -78,10 +76,10 @@
         <!-- SECCIÓN 2: INTEGRACIÓN CON SERVICIO WEB (SEMANA 4) -->
         <section class="section-card">
             <div class="section-title">
-                <span>2. Integración con Servicios Web (Semana 4 - GraphQL)</span>
+                <span>2. Cooperación y Homologación Internacional (Servicio Web GraphQL)</span>
             </div>
             <p style="font-size:13px; color:var(--text-muted); margin-bottom:18px;">
-                Consumo del Servicio Web GraphQL de países y monedas (<code>https://countries.trevorblades.com/</code>) para la convalidación de estudiantes foráneos y aranceles de matrícula.
+                Conexión con el catálogo internacional de países y divisas (<code>https://countries.trevorblades.com/</code>) para validar el origen de estudiantes extranjeros de intercambio y liquidar aranceles universitarios en dólares ($USD).
             </p>
 
             <div class="form-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 20px;">
@@ -100,8 +98,8 @@
 
                 <!-- Servicio Web 2: Catálogo Internacional -->
                 <div style="background-color:#ffffff; padding:18px; border-radius:6px; border:1px solid var(--border-color);">
-                    <h3 style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">B. Consulta GraphQL de Países con Convenio</h3>
-                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Ejecuta consulta <code>query { countries { code name emoji ... } }</code>.</p>
+                    <h3 style="font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:4px;">B. Catálogo GraphQL de Países con Convenio</h3>
+                    <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">Consulta declarativa: <code>query { countries { code name emoji ... } }</code>.</p>
                     <div class="form-group" style="margin-bottom:12px;">
                         <label for="inputWsCodigoPais">Filtrar código de país (opcional):</label>
                         <input type="text" id="inputWsCodigoPais" placeholder="Ej: DE, ES, US, MX, CR">
@@ -117,17 +115,16 @@
             </div>
         </section>
 
-        <!-- INSPECTOR DE TRAZA TÉCNICA (EVIDENCIA PARA LA PRESENTACIÓN) -->
+        <!-- AUDITORÍA DE PROTOCOLOS -->
         <section class="inspector-panel" aria-label="Consola de Protocolos">
             <div class="inspector-header">
-                <span>Inspector Técnico (Sobre JSON-RPC 2.0 y Consulta GraphQL)</span>
-                <span class="inspector-meta" id="inspectorMeta">Seleccione una operación RPC o Servicio Web</span>
+                <span>Registro de Transacción Distribuida (JSON-RPC 2.0 / GraphQL)</span>
+                <span class="inspector-meta" id="inspectorMeta">Seleccione una operación remota</span>
             </div>
-            <div class="inspector-body" id="inspectorBody">// El sobre JSON-RPC o la consulta GraphQL con su respuesta se mostrarán aquí...</div>
+            <div class="inspector-body" id="inspectorBody">// Detalle técnico de la solicitud RPC o GraphQL...</div>
         </section>
     </main>
 
-    <!-- FOOTER TRADICIONAL AUTORITATIVO (Modo Claro) -->
     <footer class="footer-principal">
         <div class="footer-container">
             <div class="footer-col">
@@ -231,7 +228,7 @@
                     const r = respuestaRPC.result;
                     const box = document.getElementById("resultadoRpcBox");
                     const cont = document.getElementById("resultadoRpcContenido");
-                    document.getElementById("resultadoRpcTitulo").textContent = `Resultado RPC: ${r.nombre} (${r.estudianteId})`;
+                    document.getElementById("resultadoRpcTitulo").textContent = `Expediente Auditado: ${r.nombre} (${r.estudianteId})`;
 
                     cont.innerHTML = `
                         <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px;">
@@ -296,7 +293,7 @@
                     const s = respuestaRPC.result;
                     const box = document.getElementById("resultadoRpcBox");
                     const cont = document.getElementById("resultadoRpcContenido");
-                    document.getElementById("resultadoRpcTitulo").textContent = `Estadísticas Remotas RPC: ${s.cursoFiltrado}`;
+                    document.getElementById("resultadoRpcTitulo").textContent = `Estadísticas de Cohorte: ${s.cursoFiltrado}`;
 
                     cont.innerHTML = `
                         <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px;">
@@ -319,7 +316,7 @@
                         </div>
                     `;
                     box.style.display = "block";
-                    mostrarToast("Estadísticas RPC calculadas por el servidor.", "success");
+                    mostrarToast("Estadísticas calculadas en servidor mediante RPC.", "success");
                 }
             } catch (err) {
                 mostrarToast("Fallo al ejecutar RPC: " + err.message, "error");
@@ -353,7 +350,7 @@
                     const d = json.datos;
                     const box = document.getElementById("resultadoWsBox");
                     const cont = document.getElementById("resultadoWsContenido");
-                    document.getElementById("resultadoWsTitulo").textContent = `Homologación Internacional: ${d.estudiante.nombre}`;
+                    document.getElementById("resultadoWsTitulo").textContent = `Convalidación Internacional: ${d.estudiante.nombre}`;
 
                     cont.innerHTML = `
                         <div style="background:#ffffff; padding:14px 16px; border-radius:6px; border:1px solid var(--border-color);">
