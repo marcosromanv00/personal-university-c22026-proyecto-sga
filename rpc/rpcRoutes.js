@@ -16,6 +16,10 @@ router.post("/", async (req, res) => {
     const respuestaRPC = await procesarMensajeRPC(req.body);
 
     console.log("Respuesta generada:", JSON.stringify(respuestaRPC, null, 2));
+    // Una notificación válida no solicita una respuesta JSON-RPC.
+    if (req.body && req.body.id === undefined && respuestaRPC.error?.code !== -32600) {
+        return res.status(204).end();
+    }
     res.json(respuestaRPC);
 });
 

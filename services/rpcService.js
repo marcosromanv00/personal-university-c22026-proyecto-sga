@@ -6,16 +6,17 @@
 const academicoService = require("./academicoService");
 
 function calcularPromedioPonderado({ estudianteId }) {
-    if (!estudianteId) {
+    if (typeof estudianteId !== "string" || !estudianteId.trim()) {
         throw { code: -32602, message: "Parámetro 'estudianteId' inválido o ausente." };
     }
 
-    const estudiante = academicoService.obtenerEstudiantePorId(estudianteId);
+    const estudiante = academicoService.obtenerEstudiantePorId(estudianteId.trim());
     if (!estudiante) {
         throw { code: -32001, message: `Estudiante con ID '${estudianteId}' no encontrado en el sistema.` };
     }
 
-    const matriculas = estudiante.matriculas || [];
+    // La matrícula nueva tiene nota 0 y estado En Curso: aún no está evaluada.
+    const matriculas = (estudiante.matriculas || []).filter(m => m.estado !== "En Curso");
     if (matriculas.length === 0) {
         return {
             estudianteId: estudiante.id,
@@ -25,7 +26,7 @@ function calcularPromedioPonderado({ estudianteId }) {
             creditosTotales: 0,
             creditosAprobados: 0,
             promedioPonderado: 0,
-            condicionAcademica: "Sin Cursos Matriculados",
+            condicionAcademica: "Sin Calificaciones Registradas",
             desgloseCursos: []
         };
     }
@@ -35,8 +36,14 @@ function calcularPromedioPonderado({ estudianteId }) {
     let creditosAprobados = 0;
 
     const desglose = matriculas.map(m => {
-        const creditos = m.creditos || 3;
-        const nota = m.notaFinal || 0;
+        const creditos = m.creditos;
+        if (typeof creditos !== "number" || !Number.isFinite(creditos) || creditos < 0) {
+            throw { code: -32002, message: `Créditos inválidos para el curso '${m.cursoId}'.` };
+        }
+        const nota = m.notaFinal;
+        if (typeof nota !== "number" || !Number.isFinite(nota) || nota < 0 || nota > 100) {
+            throw { code: -32002, message: `Nota inválida para el curso '${m.cursoId}'.` };
+        }
         sumaPonderada += (nota * creditos);
         totalCreditos += creditos;
         if (nota >= 70) creditosAprobados += creditos;
@@ -73,8 +80,16 @@ function calcularPromedioPonderado({ estudianteId }) {
 }
 
 function analizarRendimientoGrupo({ cursoId } = {}) {
+    if (cursoId != null && typeof cursoId !== "string") {
+        throw { code: -32602, message: "Parámetro 'cursoId' debe ser texto." };
+    }
+    cursoId = cursoId ? cursoId.trim() : null;
     const estudiantes = academicoService.obtenerEstudiantes();
     const cursos = academicoService.obtenerCursos();
+    const cursoInfo = cursoId ? cursos.find(c => c.id.toLowerCase() === cursoId.toLowerCase()) : null;
+    if (cursoId && !cursoInfo) {
+        throw { code: -32001, message: `Curso '${cursoId}' no encontrado en el sistema.` };
+    }
 
     let todasMatriculas = [];
     estudiantes.forEach(e => {
@@ -90,14 +105,21 @@ function analizarRendimientoGrupo({ cursoId } = {}) {
         todasMatriculas = todasMatriculas.filter(m => m.cursoId.toLowerCase() === cursoId.toLowerCase());
     }
 
-    const notas = todasMatriculas.map(m => m.notaFinal || 0);
+    todasMatriculas = todasMatriculas.filter(m => m.estado !== "En Curso");
+    const notas = todasMatriculas.map(m => {
+        if (typeof m.notaFinal !== "number" || !Number.isFinite(m.notaFinal) || m.notaFinal < 0 || m.notaFinal > 100) {
+            throw { code: -32002, message: `Nota inválida para el curso '${m.cursoId}'.` };
+        }
+        return m.notaFinal;
+    });
     const total = notas.length;
 
     if (total === 0) {
         return {
-            cursoFiltrado: cursoId || "Todos los cursos",
+            cursoFiltrado: cursoInfo ? `${cursoInfo.id} - ${cursoInfo.nombre}` : "Todos los cursos (General)",
             totalEvaluados: 0,
             mediaAritmetica: 0,
+            desviacionEstandar: 0,
             notaMaxima: 0,
             notaMinima: 0,
             aprobados: 0,
@@ -108,7 +130,8 @@ function analizarRendimientoGrupo({ cursoId } = {}) {
     }
 
     const suma = notas.reduce((a, b) => a + b, 0);
-    const media = Number((suma / total).toFixed(2));
+    const mediaSinRedondear = suma / total;
+    const media = Number(mediaSinRedondear.toFixed(2));
     const max = Math.max(...notas);
     const min = Math.min(...notas);
 
@@ -117,10 +140,9 @@ function analizarRendimientoGrupo({ cursoId } = {}) {
     const reprobados = todasMatriculas.filter(m => m.notaFinal < 60).length;
 
     // Cálculo de desviación estándar
-    const varianza = notas.reduce((acc, val) => acc + Math.pow(val - media, 2), 0) / total;
+    const varianza = notas.reduce((acc, val) => acc + Math.pow(val - mediaSinRedondear, 2), 0) / total;
     const desviacionEstandar = Number(Math.sqrt(varianza).toFixed(2));
 
-    const cursoInfo = cursoId ? cursos.find(c => c.id.toLowerCase() === cursoId.toLowerCase()) : null;
 
     return {
         cursoFiltrado: cursoInfo ? `${cursoInfo.id} - ${cursoInfo.nombre}` : "Todos los cursos (General)",
@@ -138,17 +160,23 @@ function analizarRendimientoGrupo({ cursoId } = {}) {
 }
 
 async function procesarMensajeRPC(solicitud) {
-    if (!solicitud || solicitud.jsonrpc !== "2.0" || !solicitud.method) {
+    const idValido = solicitud && (solicitud.id === undefined || solicitud.id === null ||
+        typeof solicitud.id === "string" || (typeof solicitud.id === "number" && Number.isFinite(solicitud.id)));
+    if (!solicitud || Array.isArray(solicitud) || solicitud.jsonrpc !== "2.0" ||
+        typeof solicitud.method !== "string" || !solicitud.method || !idValido) {
         return {
             jsonrpc: "2.0",
             error: { code: -32600, message: "Petición RPC Inválida: Se requiere jsonrpc: '2.0' y method." },
-            id: solicitud ? solicitud.id : null
+            id: idValido && solicitud.id !== undefined ? solicitud.id : null
         };
     }
 
-    const { method, params = {}, id = 1 } = solicitud;
+    const { method, params = {}, id = null } = solicitud;
 
     try {
+        if (!params || typeof params !== "object" || Array.isArray(params)) {
+            throw { code: -32602, message: "Los parámetros de estos métodos deben ser un objeto." };
+        }
         let resultado;
         switch (method) {
             case "calcularPromedioPonderado":
