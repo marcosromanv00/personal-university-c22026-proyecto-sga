@@ -1,4 +1,3 @@
-// Verificación del módulo académico; no modifica los archivos de datos.
 const assert = require("node:assert/strict");
 const express = require("express");
 const academico = require("../services/academicoService");
@@ -52,7 +51,6 @@ async function verificar() {
         });
         assert.equal(notificacion.status, 204);
 
-        // Datos aislados en memoria: una matrícula pendiente no equivale a reprobación.
         const obtenerOriginal = academico.obtenerEstudiantePorId;
         try {
             academico.obtenerEstudiantePorId = () => ({

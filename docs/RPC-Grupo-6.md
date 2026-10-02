@@ -1,36 +1,16 @@
-# Grupo 6 - Tema 3: Sistema de gestión académica
+# RPC - Grupo 6, Tema 3: Sistema de gestión académica
 
-## Parte RPC de Anthony
+En Reportes se puede calcular el promedio ponderado de un estudiante y consultar las estadísticas de calificaciones por curso.
 
-La operación principal calcula el promedio ponderado de un estudiante a partir de las calificaciones y los créditos de sus cursos. La segunda operación resume el rendimiento de un curso o de todos los cursos. Ambas están integradas en la interfaz 4, `/reportes`, del mismo sistema que registra estudiantes, cursos, matrículas y calificaciones.
+## Archivos
 
-## Base del laboratorio
+- `rpc/rpcRoutes.js`: recibe las solicitudes en `POST /api/rpc`.
+- `services/rpcService.js`: valida los parámetros y realiza los cálculos.
+- `views/reportes.html`: envía la solicitud con `fetch` y muestra el resultado.
 
-Referencia local: `C:\Users\Anthony Cerdas\Desktop\Universidad Nacional\2026\Sist. Distribuidos\SWRCP`.
+La comunicación usa la estructura del laboratorio SWRCP: Node.js, Express, HTTP POST y mensajes con `jsonrpc`, `method`, `params` e `id`. En este proyecto el procedimiento se ejecuta en el servidor académico y consulta las matrículas, cursos y estudiantes mediante `academicoService`.
 
-| Laboratorio | Aplicación al tema académico |
-| --- | --- |
-| `app.js`: Express y archivos estáticos | El servidor existente sirve las cuatro interfaces y monta `/api/rpc`. |
-| `routes/rpcRoutes.js`: rutas y respuesta JSON | `rpc/rpcRoutes.js` recibe la llamada y devuelve el resultado. |
-| `services/rpcServices.js`: mensaje con `jsonrpc`, `method`, `params`, `id` | El navegador envía el mismo tipo de mensaje para invocar un cálculo académico. |
-| `fetch`, POST, Content-Type y JSON.stringify | Las funciones `invocarRpcPromedio` e `invocarRpcEstadisticas` en `views/reportes.html` realizan la llamada. |
-| Comprobación HTTP y del campo `error` | La interfaz muestra los errores y el inspector permite revisar solicitud y respuesta. |
-
-El laboratorio consume procedimientos de proveedores externos. Aquí el navegador es el cliente y el servidor Express del sistema académico ejecuta los procedimientos. Esta es la adaptación al Tema 3; los métodos de criptomonedas del laboratorio no forman parte del sistema. Se mantiene JavaScript, Node.js, Express y `fetch`, sin agregar frameworks ni bibliotecas RPC.
-
-## Flujo
-
-1. El usuario selecciona un estudiante o curso en Reportes.
-2. El navegador construye el mensaje JSON-RPC y lo envía por HTTP POST a `/api/rpc`.
-3. La ruta llama a `procesarMensajeRPC`.
-4. El servicio identifica el método, valida parámetros y consulta `academicoService`.
-5. Se calculan los resultados con los datos de `data/estudiantes.json`, `data/cursos.json` y `data/matriculas.json`.
-6. El servidor devuelve `{ jsonrpc, result, id }`, o `{ jsonrpc, error, id }`.
-7. La interfaz presenta el resultado y el inspector muestra los mensajes.
-
-## Operación principal: calcularPromedioPonderado
-
-Solicitud:
+## Promedio ponderado
 
 ```json
 {
@@ -41,15 +21,13 @@ Solicitud:
 }
 ```
 
-Fórmula: `suma(notaFinal * creditos) / suma(creditos)`.
+Se suman las notas multiplicadas por los créditos y se divide entre el total de créditos. Con los datos iniciales del estudiante: `(95.3 * 4 + 88.8 * 3) / 7 = 92.51`.
 
-Con los datos iniciales de ese estudiante: `(95.3 * 4 + 88.8 * 3) / 7 = 92.51`.
+El resultado contiene el promedio, los créditos totales y aprobados, la condición académica y el desglose por curso. Las matrículas con estado `En Curso` se excluyen porque todavía no tienen una calificación definitiva. Una nota definitiva de cero sí se incluye. `totalCursos` cuenta los cursos evaluados.
 
-El resultado incluye nombre, carrera, promedio, créditos totales, créditos aprobados, condición académica y desglose por curso. `totalCursos` cuenta los cursos evaluados. Se excluyen las matrículas con estado `En Curso`, porque su nota inicial cero no es una calificación definitiva. Una calificación definitiva de cero sí participa en el cálculo. Los créditos cero se conservan, sin sustituirlos por tres.
+Las condiciones académicas corresponden a los umbrales definidos en el proyecto. Si no hay calificaciones, se devuelve `Sin Calificaciones Registradas`.
 
-Las etiquetas de condición y los umbrales son reglas de demostración del proyecto, no una certificación de la normativa oficial de la universidad. Si no existen calificaciones, se muestra `Sin Calificaciones Registradas`.
-
-## Operación adicional: analizarRendimientoGrupo
+## Estadísticas por curso
 
 ```json
 {
@@ -60,46 +38,31 @@ Las etiquetas de condición y los umbrales son reglas de demostración del proye
 }
 ```
 
-`cursoId` es opcional; `{}` o `{ "cursoId": null }` resume todos los cursos. Devuelve cantidad de evaluados, media, desviación estándar poblacional, notas mínima y máxima, aprobados, aplazados, reprobados y porcentaje de aprobación. Para EIF-401, con los datos iniciales: 6 evaluados, media 87.93 y aprobación 83.3%. Los resultados cambian al actualizar las calificaciones del sistema.
+Devuelve cantidad de evaluados, media, desviación estándar poblacional, notas mínima y máxima, aprobados, aplazados, reprobados y porcentaje de aprobación. Con los datos iniciales de EIF-401: 6 evaluados, media 87.93 y aprobación 83.3%.
 
-## Errores y alcance
+Para consultar todos los cursos se envía `params: {}`. Los resultados cambian al registrar calificaciones desde Gestión.
 
-- `-32600`: mensaje inválido.
-- `-32601`: método desconocido.
-- `-32602`: parámetros inválidos.
-- `-32001`: estudiante o curso inexistente.
-- `-32002`: nota o créditos inválidos en los datos.
+## Respuestas y errores
 
-El cliente debe revisar `error` aunque HTTP devuelva 200. La interfaz utiliza llamadas individuales con parámetros nombrados y un `id` que se conserva en la respuesta. Las notificaciones sin `id` reciben HTTP 204. No se implementan lotes de llamadas ni parámetros posicionales; este módulo cubre las operaciones utilizadas por la aplicación, no todos los casos del estándar JSON-RPC.
+La respuesta conserva el `id` de la solicitud y devuelve `result` o `error`. Los errores RPC se revisan aunque la respuesta HTTP sea 200.
 
-## Ejecutar y verificar
+| Código | Error |
+| --- | --- |
+| -32600 | Solicitud inválida |
+| -32601 | Método desconocido |
+| -32602 | Parámetros inválidos |
+| -32001 | Estudiante o curso inexistente |
+| -32002 | Nota o créditos inválidos |
 
-Desde la carpeta raíz del repositorio:
+Se usan llamadas individuales con parámetros nombrados. No se admiten lotes ni parámetros posicionales. Las notificaciones sin `id` reciben HTTP 204.
+
+## Ejecución
 
 ```powershell
 npm install
 npm start
 ```
 
-Abrir `http://localhost:3000/reportes`. Para ejecutar la verificación del módulo:
+Abrir `http://localhost:3000/reportes`. La prueba se ejecuta con `node tests/rpc.test.js` y no modifica los archivos de datos.
 
-```powershell
-node tests/rpc.test.js
-```
-
-La prueba realiza llamadas HTTP a un servidor temporal y comprueba los cálculos, errores, curso sin evaluaciones y exclusión de matrículas pendientes. No modifica los datos persistidos.
-
-## Guion breve para presentar
-
-1. Abrir Reportes, seleccionar el estudiante `4-0231-0814` y ejecutar el promedio ponderado.
-2. Mostrar 92.51 con los datos iniciales y explicar la fórmula con los créditos de ambos cursos.
-3. Mostrar en el inspector `method`, `params`, `id` y `result`.
-4. Seleccionar EIF-401 y ejecutar las estadísticas.
-5. Explicar que las notas registradas en Gestión se usan en estos cálculos, demostrando la integración del sistema.
-6. Mostrar `rpc/rpcRoutes.js` y `services/rpcService.js`: el navegador solicita el procedimiento y el cálculo se ejecuta en el servidor.
-
-Explicación oral: «Mi parte implementa las llamadas RPC del sistema de gestión académica del Grupo 6. La página envía el nombre del procedimiento y la identificación del estudiante o curso en un mensaje JSON-RPC. El servidor consulta las matrículas y calificaciones, realiza el cálculo y devuelve el resultado con el mismo identificador de la solicitud».
-
-## Evidencias para el documento del grupo
-
-Capturar el promedio en Reportes, las estadísticas por curso y los mensajes de solicitud y respuesta en el inspector. Esta guía documenta la parte RPC; la entrega completa del grupo también requiere las otras interfaces y tecnologías del enunciado.
+Para la demostración, calcular el promedio de un estudiante, consultar EIF-401 y mostrar la solicitud y respuesta en el inspector. Las capturas de estos resultados sirven como evidencia de la parte RPC.

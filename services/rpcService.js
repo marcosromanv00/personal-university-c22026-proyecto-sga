@@ -1,8 +1,3 @@
-// ============================================================================
-// SERVICIO RPC (Semana 3) - Protocolo JSON-RPC 2.0
-// Procedimientos remotos para cálculo de estadísticas y promedios ponderados
-// ============================================================================
-
 const academicoService = require("./academicoService");
 
 function calcularPromedioPonderado({ estudianteId }) {
@@ -15,7 +10,6 @@ function calcularPromedioPonderado({ estudianteId }) {
         throw { code: -32001, message: `Estudiante con ID '${estudianteId}' no encontrado en el sistema.` };
     }
 
-    // La matrícula nueva tiene nota 0 y estado En Curso: aún no está evaluada.
     const matriculas = (estudiante.matriculas || []).filter(m => m.estado !== "En Curso");
     if (matriculas.length === 0) {
         return {
@@ -139,10 +133,8 @@ function analizarRendimientoGrupo({ cursoId } = {}) {
     const aplazados = todasMatriculas.filter(m => m.notaFinal >= 60 && m.notaFinal < 70).length;
     const reprobados = todasMatriculas.filter(m => m.notaFinal < 60).length;
 
-    // Cálculo de desviación estándar
     const varianza = notas.reduce((acc, val) => acc + Math.pow(val - mediaSinRedondear, 2), 0) / total;
     const desviacionEstandar = Number(Math.sqrt(varianza).toFixed(2));
-
 
     return {
         cursoFiltrado: cursoInfo ? `${cursoInfo.id} - ${cursoInfo.nombre}` : "Todos los cursos (General)",
