@@ -12,13 +12,16 @@ function mostrarToast(mensaje, tipo = "info") {
     }
     toast.textContent = mensaje;
     if (tipo === "error") {
-        toast.style.borderColor = "var(--accent-rose)";
-        toast.style.color = "#fda4af";
+        toast.style.borderColor = "var(--una-red-border)";
+        toast.style.backgroundColor = "var(--una-red-subtle)";
+        toast.style.color = "var(--una-red)";
     } else if (tipo === "success") {
-        toast.style.borderColor = "var(--accent-emerald)";
-        toast.style.color = "#86efac";
+        toast.style.borderColor = "var(--tag-green-border)";
+        toast.style.backgroundColor = "var(--tag-green-bg)";
+        toast.style.color = "var(--tag-green-text)";
     } else {
-        toast.style.borderColor = "var(--border-subtle)";
+        toast.style.borderColor = "var(--border-color)";
+        toast.style.backgroundColor = "var(--bg-surface)";
         toast.style.color = "var(--text-primary)";
     }
     toast.style.display = "block";
