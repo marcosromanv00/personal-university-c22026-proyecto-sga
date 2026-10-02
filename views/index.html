@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SGA Distribuido - Panel de Control Académico</title>
     <meta name="description" content="Sistema de Gestión Académica Distribuido para la Escuela de Informática de la Universidad Nacional.">
-    <link rel="stylesheet" href="/css/estilos.css?v=2026-una">
+    <link rel="stylesheet" href="/css/estilos.css?v=2026-una-v3">
 </head>
 <body>
     <header class="header-principal">
@@ -26,40 +26,78 @@
     <main class="main-wrapper">
         <header class="page-header" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px;">
             <div>
+                <div style="font-size:11px; font-weight:700; color:var(--una-red); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:4px;">
+                    Universidad Nacional &bull; Escuela de Informática
+                </div>
                 <h2>Panel de Control y Analítica Académica</h2>
                 <p>Monitoreo institucional de la cohorte estudiantil, oferta curricular y salud de la plataforma distribuida.</p>
             </div>
             <div style="display:flex; gap:10px; align-items:center;">
-                <span style="display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:var(--tag-green-text); background-color:var(--tag-green-bg); border:1px solid var(--tag-green-border); padding:4px 10px; border-radius:999px;">
-                    <span style="width:7px; height:7px; border-radius:50%; background-color:var(--tag-green-text);"></span> Clúster Operativo
+                <span style="display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:var(--tag-green-text); background-color:var(--tag-green-bg); border:1px solid var(--tag-green-border); padding:5px 12px; border-radius:999px;">
+                    <span class="health-dot"></span> Clúster Distribuido Operativo
                 </span>
-                <span style="font-size:12px; color:var(--text-muted); font-weight:500;">Período: II Ciclo 2026</span>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="cargarDashboard()" title="Actualizar métricas en vivo" style="display:inline-flex; align-items:center; gap:5px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                    Sincronizar
+                </button>
             </div>
         </header>
 
-        <!-- KPI ROW (MÉTRICAS CLAVE) -->
+        <!-- KPI ROW (MÉTRICAS CLAVE CON ICONOS GRÁFICOS) -->
         <section class="kpi-row" aria-label="Métricas Académicas">
             <article class="kpi-card">
-                <div class="kpi-label">Estudiantes Registrados</div>
-                <div class="kpi-value" id="kpiEstudiantes">--</div>
-                <div class="kpi-subtext">Población activa</div>
+                <div class="kpi-top-row">
+                    <span class="kpi-label">Estudiantes Registrados</span>
+                    <span class="kpi-icon-badge icon-red">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </span>
+                </div>
+                <div class="kpi-main-metric">
+                    <div class="kpi-value" id="kpiEstudiantes">--</div>
+                    <span class="kpi-trend trend-up">Activa</span>
+                </div>
+                <div class="kpi-subtext">Población de cohorte en curso</div>
             </article>
 
             <article class="kpi-card">
-                <div class="kpi-label">Cursos Ofertados</div>
-                <div class="kpi-value" id="kpiCursos">--</div>
-                <div class="kpi-subtext">Catálogo vigente</div>
+                <div class="kpi-top-row">
+                    <span class="kpi-label">Cursos Ofertados</span>
+                    <span class="kpi-icon-badge icon-blue">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    </span>
+                </div>
+                <div class="kpi-main-metric">
+                    <div class="kpi-value" id="kpiCursos">--</div>
+                    <span class="kpi-trend trend-neutral">Ciclo 2026</span>
+                </div>
+                <div class="kpi-subtext">Catálogo curricular vigente</div>
             </article>
 
             <article class="kpi-card">
-                <div class="kpi-label">Matrículas Formalizadas</div>
-                <div class="kpi-value" id="kpiMatriculas">--</div>
-                <div class="kpi-subtext">Asignaciones en cursos</div>
+                <div class="kpi-top-row">
+                    <span class="kpi-label">Matrículas Formalizadas</span>
+                    <span class="kpi-icon-badge icon-emerald">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    </span>
+                </div>
+                <div class="kpi-main-metric">
+                    <div class="kpi-value" id="kpiMatriculas">--</div>
+                    <span class="kpi-trend trend-up">100% Actas</span>
+                </div>
+                <div class="kpi-subtext">Inscripciones y actas docentes</div>
             </article>
 
             <article class="kpi-card">
-                <div class="kpi-label">Promedio de Cohorte</div>
-                <div class="kpi-value" id="kpiPromedio">--</div>
+                <div class="kpi-top-row">
+                    <span class="kpi-label">Promedio de Cohorte</span>
+                    <span class="kpi-icon-badge icon-amber">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                    </span>
+                </div>
+                <div class="kpi-main-metric">
+                    <div class="kpi-value" id="kpiPromedio">--</div>
+                    <span class="kpi-trend trend-up" id="kpiTrendBadge">Honor</span>
+                </div>
                 <div class="kpi-subtext" id="kpiAprobacion">--% tasa de aprobación</div>
             </article>
         </section>
@@ -69,95 +107,141 @@
             <a href="/gestion" class="action-card">
                 <div class="action-header">
                     <span class="action-badge">Matrículas</span>
-                    <span style="font-size:16px;">📋</span>
+                    <span class="action-icon-badge icon-red">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    </span>
                 </div>
                 <div>
                     <div class="action-title">Formalización de Matrícula</div>
                     <div class="action-desc">Inscripción oficial de asignaturas y asignación de actas docentes.</div>
                 </div>
-                <div class="action-link-text">Gestionar Cupos &rarr;</div>
+                <div class="action-link-text">
+                    Gestionar Cupos 
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </div>
             </a>
 
             <a href="/gestion" class="action-card">
                 <div class="action-header">
                     <span class="action-badge">Expedientes</span>
-                    <span style="font-size:16px;">👤</span>
+                    <span class="action-icon-badge icon-blue">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                    </span>
                 </div>
                 <div>
                     <div class="action-title">Registro de Estudiantes</div>
                     <div class="action-desc">Alta de nuevos expedientes, asignación de cédula y plan de estudios.</div>
                 </div>
-                <div class="action-link-text">Nuevo Registro &rarr;</div>
+                <div class="action-link-text">
+                    Nuevo Registro 
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </div>
             </a>
 
             <a href="/consulta" class="action-card">
                 <div class="action-header">
                     <span class="action-badge">Padrón</span>
-                    <span style="font-size:16px;">🔍</span>
+                    <span class="action-icon-badge icon-emerald">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    </span>
                 </div>
                 <div>
                     <div class="action-title">Consulta de Expedientes</div>
                     <div class="action-desc">Exploración de calificaciones, condición académica y procedencia.</div>
                 </div>
-                <div class="action-link-text">Consultar Padrón &rarr;</div>
+                <div class="action-link-text">
+                    Consultar Padrón 
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </div>
             </a>
 
             <a href="/reportes" class="action-card">
                 <div class="action-header">
                     <span class="action-badge">Analítica</span>
-                    <span style="font-size:16px;">⚡</span>
+                    <span class="action-icon-badge icon-amber">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    </span>
                 </div>
                 <div>
                     <div class="action-title">Auditoría & Cómputo RPC</div>
                     <div class="action-desc">Ponderación por créditos, varianza de notas y convalidación foránea.</div>
                 </div>
-                <div class="action-link-text">Auditar Cohorte &rarr;</div>
+                <div class="action-link-text">
+                    Auditar Cohorte 
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </div>
             </a>
         </section>
 
         <!-- ANALÍTICA REAL: DOS COLUMNAS -->
         <div class="dashboard-grid-2col">
-            <!-- COLUMNA 1: RENDIMIENTO ACADÉMICO -->
+            <!-- COLUMNA 1: RENDIMIENTO ACADÉMICO CON ANILLO GRÁFICO DONUT -->
             <section class="section-card" style="margin-bottom:0;">
                 <div class="section-title">
                     <span>Distribución de Rendimiento de la Cohorte</span>
                 </div>
-                <p style="font-size:13px; color:var(--text-muted); margin-bottom:18px;">
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">
                     Estado oficial del rendimiento académico calculado sobre actas formalizadas del ciclo lectivo.
                 </p>
 
-                <div class="stat-bar-group">
-                    <div class="stat-bar-header">
-                        <span>Estudiantes Aprobados (&ge; 70.0)</span>
-                        <strong id="statCountAprobados">--</strong>
+                <div class="cohort-analytics-wrapper">
+                    <div class="donut-box">
+                        <svg width="120" height="120" viewBox="0 0 36 36" style="transform: rotate(-90deg);">
+                            <!-- Fondo base -->
+                            <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#f1f5f9" stroke-width="3.5" />
+                            <!-- Reprobados (rojo) -->
+                            <path id="donutReprobados" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#b91c1c" stroke-width="3.5" stroke-dasharray="0, 100" />
+                            <!-- Aplazados (ámbar) -->
+                            <path id="donutAplazados" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#f59e0b" stroke-width="3.5" stroke-dasharray="0, 100" />
+                            <!-- Aprobados (verde) -->
+                            <path id="donutAprobados" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#10b981" stroke-width="3.5" stroke-dasharray="89, 100" />
+                        </svg>
+                        <div class="donut-center-text">
+                            <div class="donut-value" id="donutPct">--</div>
+                            <div class="donut-label">Aprobación</div>
+                        </div>
                     </div>
-                    <div class="stat-bar-track">
-                        <div class="stat-bar-fill fill-green" id="statBarAprobados" style="width: 0%;"></div>
+
+                    <div>
+                        <div class="stat-bar-group">
+                            <div class="stat-bar-header">
+                                <span>Aprobados (&ge; 70.0)</span>
+                                <strong id="statCountAprobados">--</strong>
+                            </div>
+                            <div class="stat-bar-track">
+                                <div class="stat-bar-fill fill-green" id="statBarAprobados" style="width: 0%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="stat-bar-group">
+                            <div class="stat-bar-header">
+                                <span>Aplazados (60.0 - 69.9)</span>
+                                <strong id="statCountAplazados">--</strong>
+                            </div>
+                            <div class="stat-bar-track">
+                                <div class="stat-bar-fill fill-amber" id="statBarAplazados" style="width: 0%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="stat-bar-group">
+                            <div class="stat-bar-header">
+                                <span>Reprobados (&lt; 60.0)</span>
+                                <strong id="statCountReprobados">--</strong>
+                            </div>
+                            <div class="stat-bar-track">
+                                <div class="stat-bar-fill fill-red" id="statBarReprobados" style="width: 0%;"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="stat-bar-group">
-                    <div class="stat-bar-header">
-                        <span>Estudiantes Aplazados (60.0 - 69.9)</span>
-                        <strong id="statCountAplazados">--</strong>
-                    </div>
-                    <div class="stat-bar-track">
-                        <div class="stat-bar-fill fill-amber" id="statBarAplazados" style="width: 0%;"></div>
-                    </div>
-                </div>
-
-                <div class="stat-bar-group">
-                    <div class="stat-bar-header">
-                        <span>Estudiantes Reprobados (&lt; 60.0)</span>
-                        <strong id="statCountReprobados">--</strong>
-                    </div>
-                    <div class="stat-bar-track">
-                        <div class="stat-bar-fill fill-red" id="statBarReprobados" style="width: 0%;"></div>
-                    </div>
+                <div class="cohort-insight-banner">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    <span><strong>Cohorte Destacada:</strong> El 100% de la población evaluada se mantiene en rango de aprobación y convocatoria sin deserción.</span>
                 </div>
             </section>
 
-            <!-- COLUMNA 2: SALUD DE SERVICIOS DISTRIBUIDOS -->
+            <!-- COLUMNA 2: SALUD DE SERVICIOS DISTRIBUIDOS CON ICONOS MODERNOS -->
             <section class="section-card" style="margin-bottom:0;">
                 <div class="section-title">
                     <span>Estado del Clúster y Servicios Distribuidos</span>
@@ -169,46 +253,54 @@
                 <div class="health-list">
                     <div class="health-item">
                         <div class="health-info">
-                            <span class="health-dot"></span>
+                            <span class="health-icon-box">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                            </span>
                             <div>
                                 <div class="health-name">Servicio de Expedientes y Matrícula (REST)</div>
                                 <div class="health-role">Endpoints HTTP / Verbos CRUD canónicos</div>
                             </div>
                         </div>
-                        <span class="health-status">Operativo</span>
+                        <span class="health-status"><span class="health-dot"></span> Operativo</span>
                     </div>
 
                     <div class="health-item">
                         <div class="health-info">
-                            <span class="health-dot"></span>
+                            <span class="health-icon-box">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+                            </span>
                             <div>
                                 <div class="health-name">Motor de Cómputo Analítico (JSON-RPC 2.0)</div>
                                 <div class="health-role">Ponderación por créditos y varianza grupal</div>
                             </div>
                         </div>
-                        <span class="health-status">Activo</span>
+                        <span class="health-status"><span class="health-dot"></span> Activo</span>
                     </div>
 
                     <div class="health-item">
                         <div class="health-info">
-                            <span class="health-dot"></span>
+                            <span class="health-icon-box">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                            </span>
                             <div>
                                 <div class="health-name">Pasarela de Movilidad Internacional (GraphQL)</div>
                                 <div class="health-role">Validación externa con tolerancia a fallos</div>
                             </div>
                         </div>
-                        <span class="health-status">Conectado</span>
+                        <span class="health-status"><span class="health-dot"></span> Conectado</span>
                     </div>
 
                     <div class="health-item">
                         <div class="health-info">
-                            <span class="health-dot"></span>
+                            <span class="health-icon-box">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                            </span>
                             <div>
                                 <div class="health-name">Capa de Persistencia y Archivos Planos</div>
                                 <div class="health-role">Almacenamiento transaccional en disco (/data)</div>
                             </div>
                         </div>
-                        <span class="health-status">Sincronizado</span>
+                        <span class="health-status"><span class="health-dot"></span> Sincronizado</span>
                     </div>
                 </div>
             </section>
@@ -309,6 +401,8 @@
                     document.getElementById("kpiMatriculas").textContent = d.totalMatriculas;
                     document.getElementById("kpiPromedio").textContent = d.promedioGeneral;
                     document.getElementById("kpiAprobacion").textContent = `${d.porcentajeAprobacion}% tasa de aprobación`;
+                    const donutPctEl = document.getElementById("donutPct");
+                    if (donutPctEl) donutPctEl.textContent = `${d.porcentajeAprobacion}%`;
                 }
 
                 const resEst = await fetch("/api/academico/estudiantes");
@@ -316,17 +410,28 @@
                 const tbody = document.getElementById("tablaDashboardEstudiantes");
                 if (jsonEst.datos && jsonEst.datos.length > 0) {
                     const estudiantes = jsonEst.datos;
-                    tbody.innerHTML = estudiantes.slice(0, 5).map(e => `
+                    const colores = ["av-red", "av-blue", "av-green", "av-amber", "av-purple"];
+                    tbody.innerHTML = estudiantes.slice(0, 5).map((e, idx) => {
+                        const iniciales = e.nombre.split(" ").map(n => n[0]).slice(0, 2).join("");
+                        const avatarClass = colores[idx % colores.length];
+                        const flag = e.codigoPais === "CR" ? "🇨🇷" : (e.codigoPais === "DE" ? "🇩🇪" : (e.codigoPais === "ES" ? "🇪🇸" : (e.codigoPais === "MX" ? "🇲🇽" : "🌎")));
+                        return `
                         <tr>
                             <td><code>${e.id}</code></td>
-                            <td><strong>${e.nombre}</strong></td>
+                            <td>
+                                <div style="display:flex; align-items:center;">
+                                    <span class="avatar-badge ${avatarClass}">${iniciales}</span>
+                                    <span><strong>${e.nombre}</strong></span>
+                                </div>
+                            </td>
                             <td>${e.carrera}</td>
-                            <td>${e.pais} (${e.codigoPais})</td>
-                            <td>${e.totalMatriculas}</td>
-                            <td><strong>${e.promedioGeneral > 0 ? e.promedioGeneral : 'N/A'}</strong></td>
+                            <td>${flag} ${e.pais} (${e.codigoPais})</td>
+                            <td><span class="kpi-trend trend-neutral">${e.totalMatriculas} ${e.totalMatriculas === 1 ? 'curso' : 'cursos'}</span></td>
+                            <td><strong style="font-size:14px;">${e.promedioGeneral > 0 ? e.promedioGeneral : 'N/A'}</strong></td>
                             <td><span class="${e.promedioGeneral >= 70 ? 'tag-aprobado' : (e.promedioGeneral >= 60 ? 'tag-aplazado' : 'tag-reprobado')}">${e.estado}</span></td>
                         </tr>
-                    `).join("");
+                        `;
+                    }).join("");
 
                     // Calcular analítica de distribución de cohorte
                     const totalConNota = estudiantes.filter(e => e.promedioGeneral > 0).length || 1;
@@ -346,6 +451,20 @@
 
                     document.getElementById("statCountReprobados").textContent = `${numReprobados} estudiantes (${pctReprobados}%)`;
                     document.getElementById("statBarReprobados").style.width = `${pctReprobados}%`;
+
+                    // Actualizar segmentos del anillo SVG
+                    const dAprob = document.getElementById("donutAprobados");
+                    const dAplaz = document.getElementById("donutAplazados");
+                    const dReprob = document.getElementById("donutReprobados");
+                    if (dAprob) dAprob.setAttribute("stroke-dasharray", `${pctAprobados}, 100`);
+                    if (dAplaz) {
+                        dAplaz.setAttribute("stroke-dasharray", `${pctAplazados}, 100`);
+                        dAplaz.setAttribute("stroke-dashoffset", `-${pctAprobados}`);
+                    }
+                    if (dReprob) {
+                        dReprob.setAttribute("stroke-dasharray", `${pctReprobados}, 100`);
+                        dReprob.setAttribute("stroke-dashoffset", `-${pctAprobados + pctAplazados}`);
+                    }
                 }
             } catch (err) {
                 mostrarToast("Error cargando dashboard: " + err.message, "error");

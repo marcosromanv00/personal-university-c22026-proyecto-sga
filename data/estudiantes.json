@@ -58,5 +58,25 @@
     "pais": "Alemania",
     "codigoPais": "DE",
     "estado": "Intercambio"
+  },
+  {
+    "id": "111111",
+    "nombre": "Prueba",
+    "carrera": "Ingeniería en Sistemas de Información",
+    "nivel": "I Nivel",
+    "email": "111111@est.una.ac.cr",
+    "pais": "Costa Rica",
+    "codigoPais": "CR",
+    "estado": "Activo"
+  },
+  {
+    "id": "q4r3qtf",
+    "nombre": "2gwegwg",
+    "carrera": "Ingeniería en Sistemas de Información",
+    "nivel": "I Nivel",
+    "email": "q4r3qtf@est.una.ac.cr",
+    "pais": "Costa Rica",
+    "codigoPais": "CR",
+    "estado": "Activo"
   }
 ]
