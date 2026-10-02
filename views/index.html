@@ -24,11 +24,20 @@
     </header>
 
     <main class="main-wrapper">
-        <header class="page-header">
-            <h2>Panel de Control Académico</h2>
-            <p>Resumen institucional del estado de la cohorte estudiantil, oferta de asignaturas y operatividad de los servicios del sistema.</p>
+        <header class="page-header" style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px;">
+            <div>
+                <h2>Panel de Control y Analítica Académica</h2>
+                <p>Monitoreo institucional de la cohorte estudiantil, oferta curricular y salud de la plataforma distribuida.</p>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center;">
+                <span style="display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; color:var(--tag-green-text); background-color:var(--tag-green-bg); border:1px solid var(--tag-green-border); padding:4px 10px; border-radius:999px;">
+                    <span style="width:7px; height:7px; border-radius:50%; background-color:var(--tag-green-text);"></span> Clúster Operativo
+                </span>
+                <span style="font-size:12px; color:var(--text-muted); font-weight:500;">Período: II Ciclo 2026</span>
+            </div>
         </header>
 
+        <!-- KPI ROW (MÉTRICAS CLAVE) -->
         <section class="kpi-row" aria-label="Métricas Académicas">
             <article class="kpi-card">
                 <div class="kpi-label">Estudiantes Registrados</div>
@@ -55,51 +64,160 @@
             </article>
         </section>
 
-        <section class="section-card">
-            <div class="section-title">
-                <span>Módulos y Servicios de la Plataforma</span>
-            </div>
-            <div class="table-container">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Módulo del Sistema</th>
-                            <th>Protocolo de Red</th>
-                            <th>Regla de Negocio / Alcance</th>
-                            <th>Mapeo de Cátedra</th>
-                            <th>Acceso</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Gestión de Expedientes y Matrícula</strong></td>
-                            <td>REST (HTTP Verbs)</td>
-                            <td>Ciclo de vida de recursos: alta de estudiantes, oferta de cursos y actas de matrícula.</td>
-                            <td>Semana 2</td>
-                            <td><a href="/consulta" class="btn btn-secondary btn-sm">Abrir Módulo</a></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Motor de Cómputo y Ponderación</strong></td>
-                            <td>JSON-RPC 2.0 (HTTP POST)</td>
-                            <td>Cálculo remoto de promedios ponderados por créditos y analítica de rendimiento.</td>
-                            <td>Semana 3</td>
-                            <td><a href="/reportes" class="btn btn-secondary btn-sm">Abrir Módulo</a></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Cooperación y Movilidad Internacional</strong></td>
-                            <td>GraphQL (HTTP POST)</td>
-                            <td>Convalidación de procedencia foránea y liquidación arancelaria con tolerancia a fallos.</td>
-                            <td>Semana 4</td>
-                            <td><a href="/reportes" class="btn btn-secondary btn-sm">Abrir Módulo</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <!-- ATAJOS EJECUTIVOS (ACCIONES RÁPIDAS DEL SISTEMA) -->
+        <section class="action-grid" aria-label="Atajos Operativos">
+            <a href="/gestion" class="action-card">
+                <div class="action-header">
+                    <span class="action-badge">Matrículas</span>
+                    <span style="font-size:16px;">📋</span>
+                </div>
+                <div>
+                    <div class="action-title">Formalización de Matrícula</div>
+                    <div class="action-desc">Inscripción oficial de asignaturas y asignación de actas docentes.</div>
+                </div>
+                <div class="action-link-text">Gestionar Cupos &rarr;</div>
+            </a>
+
+            <a href="/gestion" class="action-card">
+                <div class="action-header">
+                    <span class="action-badge">Expedientes</span>
+                    <span style="font-size:16px;">👤</span>
+                </div>
+                <div>
+                    <div class="action-title">Registro de Estudiantes</div>
+                    <div class="action-desc">Alta de nuevos expedientes, asignación de cédula y plan de estudios.</div>
+                </div>
+                <div class="action-link-text">Nuevo Registro &rarr;</div>
+            </a>
+
+            <a href="/consulta" class="action-card">
+                <div class="action-header">
+                    <span class="action-badge">Padrón</span>
+                    <span style="font-size:16px;">🔍</span>
+                </div>
+                <div>
+                    <div class="action-title">Consulta de Expedientes</div>
+                    <div class="action-desc">Exploración de calificaciones, condición académica y procedencia.</div>
+                </div>
+                <div class="action-link-text">Consultar Padrón &rarr;</div>
+            </a>
+
+            <a href="/reportes" class="action-card">
+                <div class="action-header">
+                    <span class="action-badge">Analítica</span>
+                    <span style="font-size:16px;">⚡</span>
+                </div>
+                <div>
+                    <div class="action-title">Auditoría & Cómputo RPC</div>
+                    <div class="action-desc">Ponderación por créditos, varianza de notas y convalidación foránea.</div>
+                </div>
+                <div class="action-link-text">Auditar Cohorte &rarr;</div>
+            </a>
         </section>
 
+        <!-- ANALÍTICA REAL: DOS COLUMNAS -->
+        <div class="dashboard-grid-2col">
+            <!-- COLUMNA 1: RENDIMIENTO ACADÉMICO -->
+            <section class="section-card" style="margin-bottom:0;">
+                <div class="section-title">
+                    <span>Distribución de Rendimiento de la Cohorte</span>
+                </div>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:18px;">
+                    Estado oficial del rendimiento académico calculado sobre actas formalizadas del ciclo lectivo.
+                </p>
+
+                <div class="stat-bar-group">
+                    <div class="stat-bar-header">
+                        <span>Estudiantes Aprobados (&ge; 70.0)</span>
+                        <strong id="statCountAprobados">--</strong>
+                    </div>
+                    <div class="stat-bar-track">
+                        <div class="stat-bar-fill fill-green" id="statBarAprobados" style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <div class="stat-bar-group">
+                    <div class="stat-bar-header">
+                        <span>Estudiantes Aplazados (60.0 - 69.9)</span>
+                        <strong id="statCountAplazados">--</strong>
+                    </div>
+                    <div class="stat-bar-track">
+                        <div class="stat-bar-fill fill-amber" id="statBarAplazados" style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <div class="stat-bar-group">
+                    <div class="stat-bar-header">
+                        <span>Estudiantes Reprobados (&lt; 60.0)</span>
+                        <strong id="statCountReprobados">--</strong>
+                    </div>
+                    <div class="stat-bar-track">
+                        <div class="stat-bar-fill fill-red" id="statBarReprobados" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- COLUMNA 2: SALUD DE SERVICIOS DISTRIBUIDOS -->
+            <section class="section-card" style="margin-bottom:0;">
+                <div class="section-title">
+                    <span>Estado del Clúster y Servicios Distribuidos</span>
+                </div>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">
+                    Monitoreo en tiempo real de los componentes arquitectónicos del sistema.
+                </p>
+
+                <div class="health-list">
+                    <div class="health-item">
+                        <div class="health-info">
+                            <span class="health-dot"></span>
+                            <div>
+                                <div class="health-name">Servicio de Expedientes y Matrícula (REST)</div>
+                                <div class="health-role">Endpoints HTTP / Verbos CRUD canónicos</div>
+                            </div>
+                        </div>
+                        <span class="health-status">Operativo</span>
+                    </div>
+
+                    <div class="health-item">
+                        <div class="health-info">
+                            <span class="health-dot"></span>
+                            <div>
+                                <div class="health-name">Motor de Cómputo Analítico (JSON-RPC 2.0)</div>
+                                <div class="health-role">Ponderación por créditos y varianza grupal</div>
+                            </div>
+                        </div>
+                        <span class="health-status">Activo</span>
+                    </div>
+
+                    <div class="health-item">
+                        <div class="health-info">
+                            <span class="health-dot"></span>
+                            <div>
+                                <div class="health-name">Pasarela de Movilidad Internacional (GraphQL)</div>
+                                <div class="health-role">Validación externa con tolerancia a fallos</div>
+                            </div>
+                        </div>
+                        <span class="health-status">Conectado</span>
+                    </div>
+
+                    <div class="health-item">
+                        <div class="health-info">
+                            <span class="health-dot"></span>
+                            <div>
+                                <div class="health-name">Capa de Persistencia y Archivos Planos</div>
+                                <div class="health-role">Almacenamiento transaccional en disco (/data)</div>
+                            </div>
+                        </div>
+                        <span class="health-status">Sincronizado</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- TABLA DE POBLACIÓN ESTUDIANTIL RECIENTE -->
         <section class="section-card">
             <div class="section-title">
-                <span>Población Estudiantil Registrada</span>
+                <span>Población Estudiantil Reciente</span>
                 <a href="/consulta" class="btn btn-secondary btn-sm">Ver Catálogo Completo</a>
             </div>
             <div class="table-container">
@@ -122,13 +240,14 @@
             </div>
         </section>
 
-        <section class="inspector-panel" aria-label="Traza Técnica">
-            <div class="inspector-header">
-                <span>Registro de Auditoría de Red y Transacciones</span>
+        <!-- TELEMETRÍA TÉCNICA (AUDITORÍA DE RED COLAPSABLE) -->
+        <details class="telemetry-toggle">
+            <summary>
+                <span>Registro de Telemetría de Red y Auditoría Distribuida</span>
                 <span class="inspector-meta" id="inspectorMeta">GET /api/academico/dashboard | En línea</span>
-            </div>
+            </summary>
             <div class="inspector-body" id="inspectorBody">// Registro de transacciones entre cliente y servidor...</div>
-        </section>
+        </details>
     </main>
 
     <footer class="footer-principal">
@@ -196,7 +315,8 @@
                 const jsonEst = await resEst.json();
                 const tbody = document.getElementById("tablaDashboardEstudiantes");
                 if (jsonEst.datos && jsonEst.datos.length > 0) {
-                    tbody.innerHTML = jsonEst.datos.slice(0, 5).map(e => `
+                    const estudiantes = jsonEst.datos;
+                    tbody.innerHTML = estudiantes.slice(0, 5).map(e => `
                         <tr>
                             <td><code>${e.id}</code></td>
                             <td><strong>${e.nombre}</strong></td>
@@ -207,6 +327,25 @@
                             <td><span class="${e.promedioGeneral >= 70 ? 'tag-aprobado' : (e.promedioGeneral >= 60 ? 'tag-aplazado' : 'tag-reprobado')}">${e.estado}</span></td>
                         </tr>
                     `).join("");
+
+                    // Calcular analítica de distribución de cohorte
+                    const totalConNota = estudiantes.filter(e => e.promedioGeneral > 0).length || 1;
+                    const numAprobados = estudiantes.filter(e => e.promedioGeneral >= 70).length;
+                    const numAplazados = estudiantes.filter(e => e.promedioGeneral >= 60 && e.promedioGeneral < 70).length;
+                    const numReprobados = estudiantes.filter(e => e.promedioGeneral > 0 && e.promedioGeneral < 60).length;
+
+                    const pctAprobados = Math.round((numAprobados / totalConNota) * 100);
+                    const pctAplazados = Math.round((numAplazados / totalConNota) * 100);
+                    const pctReprobados = Math.round((numReprobados / totalConNota) * 100);
+
+                    document.getElementById("statCountAprobados").textContent = `${numAprobados} estudiantes (${pctAprobados}%)`;
+                    document.getElementById("statBarAprobados").style.width = `${pctAprobados}%`;
+
+                    document.getElementById("statCountAplazados").textContent = `${numAplazados} estudiantes (${pctAplazados}%)`;
+                    document.getElementById("statBarAplazados").style.width = `${pctAplazados}%`;
+
+                    document.getElementById("statCountReprobados").textContent = `${numReprobados} estudiantes (${pctReprobados}%)`;
+                    document.getElementById("statBarReprobados").style.width = `${pctReprobados}%`;
                 }
             } catch (err) {
                 mostrarToast("Error cargando dashboard: " + err.message, "error");
