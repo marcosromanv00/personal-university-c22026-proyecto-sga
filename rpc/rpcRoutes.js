@@ -2,11 +2,6 @@ const express = require("express");
 const router = express.Router();
 const { procesarMensajeRPC } = require("../services/rpcService");
 
-// ============================================================================
-// SERVICIOS RPC (Semana 3) - Manejador del Protocolo JSON-RPC 2.0
-// ============================================================================
-
-// POST - Endpoint de Ejecución de Procedimiento Remoto
 router.post("/", async (req, res) => {
     console.log("\n========================================");
     console.log("EJECUTANDO SOLICITUD RPC (Semana 3)");
@@ -16,10 +11,12 @@ router.post("/", async (req, res) => {
     const respuestaRPC = await procesarMensajeRPC(req.body);
 
     console.log("Respuesta generada:", JSON.stringify(respuestaRPC, null, 2));
+    if (req.body && req.body.id === undefined && respuestaRPC.error?.code !== -32600) {
+        return res.status(204).end();
+    }
     res.json(respuestaRPC);
 });
 
-// GET - Metadatos de métodos disponibles
 router.get("/metodos", (req, res) => {
     res.json({
         protocolo: "JSON-RPC 2.0",

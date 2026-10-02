@@ -115,6 +115,10 @@ El servidor se iniciará en el puerto 3000. Acceder a las rutas oficiales:
 - `PUT /api/academico/calificaciones`: Registra o actualiza notas parciales y calcula la nota final.
 
 ### 5.2 Servicio RPC (`/api/rpc` y `/rpc`)
+La explicación de la parte RPC del **Grupo 6 - Tema 3**, su relación con el laboratorio SWRCP y el guion de demostración están en [docs/RPC-Grupo-6.md](docs/RPC-Grupo-6.md).
+
+Verificación del módulo (sin modificar datos): `node tests/rpc.test.js`.
+
 Protocolo: **JSON-RPC 2.0** sobre transporte `HTTP POST`.
 - `calcularPromedioPonderado`: Calcula la ponderación académica `(nota * créditos) / totalCréditos`, créditos aprobados y condición de honor.
   ```json
