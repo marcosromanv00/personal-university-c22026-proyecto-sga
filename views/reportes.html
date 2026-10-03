@@ -10,23 +10,19 @@
 <body>
     <header class="header-principal">
         <div class="header-container">
-            <a href="/" class="brand-title">SGA Distribuido <span class="brand-badge-una">UNA</span></a>
+            <a href="/" class="brand-title">SGA Distribuido</a>
             <nav class="nav-principal" aria-label="Navegación del Sistema">
                 <a href="/" class="nav-link">Dashboard</a>
                 <a href="/consulta" class="nav-link">Consulta REST</a>
                 <a href="/gestion" class="nav-link">Gestión Académica</a>
                 <a href="/reportes" class="nav-link active">RPC y Servicios Web</a>
             </nav>
-            <div class="header-meta">
-                <span>II Ciclo 2026 &bull; Grupo 6</span>
-            </div>
         </div>
     </header>
 
     <main class="main-wrapper">
         <header class="page-header">
-            <h2>Cómputo Distribuido y Servicios Web</h2>
-            <p>Módulos de procesamiento analítico remoto mediante <strong>JSON-RPC 2.0 (Semana 3)</strong> e integración de <strong>Servicios Web GraphQL (Semana 4)</strong>.</p>
+            <h2>RPC y Servicios Web</h2>
         </header>
 
         <!-- SECCIÓN 1: PROCEDIMIENTOS REMOTOS RPC (SEMANA 3) -->
@@ -406,7 +402,7 @@
                         <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:8px;">
                             ${r.datos.slice(0, 12).map(p => `
                                 <div style="background:#ffffff; padding:8px 12px; border-radius:6px; border:1px solid var(--border-color); font-size:13px;">
-                                    <strong style="color:var(--text-primary);">${p.emoji} ${p.name}</strong> (${p.code})<br>
+                                    <strong style="color:var(--text-primary);">${p.name}</strong> (${p.code})<br>
                                     <span style="color:var(--text-muted); font-size:11px;">Cap: ${p.capital || 'N/A'} &bull; Moneda: ${p.currency || 'N/A'}</span>
                                 </div>
                             `).join("")}
@@ -416,7 +412,7 @@
                     const p = r.datos;
                     cont.innerHTML = `
                         <div style="background:#ffffff; padding:12px 14px; border-radius:6px; border:1px solid var(--border-color);">
-                            <h5 style="font-size:14px; color:var(--text-primary); margin-bottom:4px;">${p.emoji} ${p.name} (${p.code})</h5>
+                            <h5 style="font-size:14px; color:var(--text-primary); margin-bottom:4px;">${p.name} (${p.code})</h5>
                             <p style="font-size:13px; color:var(--text-secondary);">Capital Oficial: <strong>${p.capital}</strong> &bull; Moneda Oficial: <strong>${p.currency}</strong></p>
                         </div>
                     `;

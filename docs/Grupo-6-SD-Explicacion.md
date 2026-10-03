@@ -210,17 +210,6 @@ El servicio web resuelve una necesidad operativa concreta del Sistema de Gestió
 ### 6.4 Forma en que se Integra con la Aplicación
 La integración se ejecuta mediante el módulo backend `services/webService.js` en Node.js. Cuando el usuario interactúa con la Interfaz 4 o cuando se consulta la ficha de un estudiante internacional, la aplicación consulta el endpoint GraphQL y expone los datos procesados en la vista.
 
+
 Para asegurar el funcionamiento continuo en el aula y proteger la aplicación ante contingencias de conectividad (cumpliendo con la regla 5a de la rúbrica), el servicio incorpora **tolerancia a fallos** mediante un timeout de 5000 ms y **caché estructurada en disco**. Si la red externa no responde, conmuta en 0 ms al respaldo local sin generar errores ni interrumpir la navegación del usuario.
 
----
-
-## 7. Conclusiones
-
-### 7.1 Conclusión: Marcos Román Valverde (Cédula: 3-0529-0253)
-> *"El desarrollo del proyecto permitió comprender de manera tangible la distinción operativa entre arquitecturas orientadas a recursos (REST) y modelos orientados a ejecución de funciones remotas (RPC). La implementación de JSON-RPC 2.0 sobre Node.js demostró que desacoplar la lógica de cómputo algorítmico pesado del navegador alivia el procesamiento del cliente y unifica reglas de negocio críticas, como la ponderación de notas por créditos. Asimismo, la estructuración de persistencia en archivos planos mediante Node.js nativo reforzó la importancia del control de concurrencia y la tolerancia a fallos en sistemas distribuidos reales."*
-
-### 7.2 Conclusión: Emanuel Soto Cordero (Cédula: 1-1823-0492)
-> *"La integración del servicio web GraphQL evidenció las ventajas del paradigma de consulta declarativa frente al over-fetching común de ciertas APIs REST tradicionales. Poder solicitar únicamente los campos code, name, capital y currency reduce drásticamente el consumo de ancho de banda y la sobrecarga de serialización entre servidores distribuidos. El proyecto nos capacitó para coordinar servicios heterogéneos y diseñar arquitecturas web resistentes a fallos de conectividad mediante patrones de respaldo local."*
-
-### 7.3 Conclusión: Anthony Cerdas Morales (Cédula: 4-0231-0814)
-> *"El valor fundamental de este proyecto radicó en consolidar en una única aplicación los conceptos vistos en las Semanas 2, 3 y 4, logrando que el frontend no actúe de manera aislada sino como un consumidor transparente de múltiples protocolos. Entender cómo Express puede servir simultáneamente como API Gateway para llamadas REST, despachador de procedimientos RPC y cliente consumidor de servicios web externos nos brindó una perspectiva práctica de cómo se estructuran las plataformas empresariales en la industria tecnológica."*
